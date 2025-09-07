@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neutral-0: hsl(0, 0%, 100%);
+  --color-neutral-200: hsl(250, 6%, 84%);
+  --color-neutral-300: hsl(240, 6%, 70%);
+  --color-neutral-600: hsl(243, 23%, 30%);
+  --color-neutral-700: hsl(243, 23%, 24%);
+  --color-neutral-800: hsl(243, 27%, 20%);
+  --color-neutral-900: hsl(243, 96%, 9%);
+  
+  --color-orange-500: hsl(28, 100%, 52%);
+  
+  --color-blue-500: hsl(233, 67%, 56%);
+  --color-blue-700: hsl(248, 70%, 36%);
+  
+  /* Text Colors */
+  --color-text-neutral-0: hsl(0, 0%, 100%);
+  --color-text-neutral-200: hsl(250, 6%, 84%);
+  --color-text-neutral-300: hsl(240, 6%, 70%);
+  --color-text-neutral-600: hsl(243, 23%, 30%);
+  --color-text-neutral-700: hsl(243, 23%, 24%);
+  --color-text-neutral-800: hsl(243, 27%, 20%);
+  --color-text-neutral-900: hsl(243, 96%, 9%);
+  --color-text-orange-500: hsl(28, 100%, 52%);
+  --color-text-blue-500: hsl(233, 67%, 56%);
+  --color-text-blue-700: hsl(248, 70%, 36%);
+  
+  /* Border Colors */
+  --color-border-neutral-0: hsl(0, 0%, 100%);
+  --color-border-neutral-200: hsl(250, 6%, 84%);
+  --color-border-neutral-300: hsl(240, 6%, 70%);
+  --color-border-neutral-600: hsl(243, 23%, 30%);
+  --color-border-neutral-700: hsl(243, 23%, 24%);
+  --color-border-neutral-800: hsl(243, 27%, 20%);
+  --color-border-neutral-900: hsl(243, 96%, 9%);
+  --color-border-orange-500: hsl(28, 100%, 52%);
+  --color-border-blue-500: hsl(233, 67%, 56%);
+  --color-border-blue-700: hsl(248, 70%, 36%);
+  
+  --font-family-dm-sans: 'DM Sans', sans-serif;
+  --font-family-bricolage: 'Bricolage Grotesque', sans-serif;
+  
+  --font-size-base: 18px;
+}
+
+/* Font Faces */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype-variations');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype-variations');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  background-color: hsl(243, 96%, 9%);
+  color: hsl(0, 0%, 100%);
+  font-size: 18px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@layer utilities {
+  /* Custom Font Weight Utilities */
+  .font-dm-light {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+  .font-dm-medium {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+  }
+  .font-dm-semibold {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+  }
+  .font-dm-bold {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+  }
+  .font-bricolage-bold {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+  }
+}
