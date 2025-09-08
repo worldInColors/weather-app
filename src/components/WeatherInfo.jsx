@@ -1,3 +1,6 @@
+import ForecastGrid from "./ForecastGrid";
+import HourlyForecast from "./HourlyForecast";
+import InfoGrid from "./InfoGrid";
 import SearchBar from "./SearchBar";
 
 function WeatherInfo() {
@@ -7,7 +10,7 @@ function WeatherInfo() {
       <button className="w-full bg-blue-500 h-12 rounded-xl">Search</button>
 
       <div
-        className="flex flex-col items-center justify-center text-center pt-6 bg-contain bg-center bg-no-repeat w-full aspect-square"
+        className="flex flex-col items-center justify-center text-center bg-contain bg-center bg-no-repeat w-full aspect-square"
         style={{
           backgroundImage: 'url("/images/bg-today-small.svg")',
         }}
@@ -25,6 +28,11 @@ function WeatherInfo() {
           <p className="text-7xl">20°</p>
         </div>
       </div>
+
+      <InfoGrid />
+      <h2 className="mt-2">Daily forecast</h2>
+      <ForecastGrid />
+      <HourlyForecast />
     </div>
   );
 }

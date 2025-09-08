@@ -1,3 +1,4 @@
+import { Settings } from "lucide-react";
 import Dropdown from "./Dropdown";
 import Logo from "./Logo";
 
@@ -6,7 +7,7 @@ function Navbar() {
     <nav>
       <ul className="flex items-center justify-between p-2">
         <Logo />
-        <Dropdown />
+        <Dropdown icon={<Settings />} label="Units" />
       </ul>
     </nav>
   );
