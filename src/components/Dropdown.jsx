@@ -1,131 +1,64 @@
 import { ChevronDown, Settings } from "lucide-react";
 import { useState } from "react";
+import { Button } from "./Button";
 
-function Button({ onClick, children, isSelected }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`w-full text-left px-2 py-2 rounded text-sm transition-colors hover:bg-neutral-700 cursor-pointer ${
-        isSelected ? "bg-neutral-700 " : ""
-      }`}
-    >
-      <div className="flex justify-between items-center">
-        {children}
-        <span>{isSelected ? "✓" : ""}</span>
-      </div>
-    </button>
-  );
-}
-
-function Dropdown({ icon, label }) {
+function Dropdown({ label }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState({
-    system: "metric",
-    temperature: "celsius",
-    windSpeed: "kmh",
-    precipitation: "mm",
-  });
+  const [selectedDay, setSelectedDay] = useState("Monday");
 
-  const handleRadioChange = (category, value) => {
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [category]: value,
-    }));
-  };
-
-  const handleUnitSwitch = () => {
-    if (selectedOptions.system === "metric") {
-      setSelectedOptions((prev) => ({
-        ...prev,
-        system: "imperial",
-        temperature: "fahrenheit",
-        windSpeed: "mph",
-        precipitation: "inches",
-      }));
-    } else {
-      setSelectedOptions((prev) => ({
-        ...prev,
-        system: "metric",
-        temperature: "celsius",
-        windSpeed: "kmh",
-        precipitation: "mm",
-      }));
-    }
-  };
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 bg-neutral-700 p-2 text-neutral-200 rounded-lg"
+        className="flex items-center gap-1 bg-neutral-600 p-2 text-neutral-200 rounded-lg"
       >
-        {icon}
-        <span>{label}</span>
+        <span>{selectedDay}</span>
         <ChevronDown />
       </button>
       {isOpen && (
         <div className="absolute top-full mt-1 right-0 bg-neutral-800 p-2 rounded-xl shadow-lg z-10 min-w-full w-[200px]">
-          {/* System Selection */}
-          <div className="mb-4 space-y-1">
-            <Button onClick={() => handleUnitSwitch()}>
-              Switch to{" "}
-              {selectedOptions.system === "metric" ? "Imperial" : "Metric"}
-            </Button>
-          </div>
-
-          {/* Temperature Section */}
-          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
-            Temperature
-          </h3>
           <div className="mb-4 space-y-1">
             <Button
-              onClick={() => handleRadioChange("temperature", "celsius")}
-              isSelected={selectedOptions.temperature === "celsius"}
+              onClick={() => setSelectedDay("Monday")}
+              isSelected={selectedDay === "Monday"}
             >
-              Celsius (°C)
+              Monday
             </Button>
             <Button
-              onClick={() => handleRadioChange("temperature", "fahrenheit")}
-              isSelected={selectedOptions.temperature === "fahrenheit"}
+              onClick={() => setSelectedDay("Tuesday")}
+              isSelected={selectedDay === "Tuesday"}
             >
-              Fahrenheit (°F)
-            </Button>
-          </div>
-
-          {/* Wind Speed Section */}
-          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
-            Wind Speed
-          </h3>
-          <div className="mb-4 space-y-1">
-            <Button
-              onClick={() => handleRadioChange("windSpeed", "kmh")}
-              isSelected={selectedOptions.windSpeed === "kmh"}
-            >
-              km/h
+              Tuesday
             </Button>
             <Button
-              onClick={() => handleRadioChange("windSpeed", "mph")}
-              isSelected={selectedOptions.windSpeed === "mph"}
+              onClick={() => setSelectedDay("Wednesday")}
+              isSelected={selectedDay === "Wednesday"}
             >
-              mph
-            </Button>
-          </div>
-
-          {/* Precipitation Section */}
-          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
-            Precipitation
-          </h3>
-          <div className="space-y-1">
-            <Button
-              onClick={() => handleRadioChange("precipitation", "mm")}
-              isSelected={selectedOptions.precipitation === "mm"}
-            >
-              Millimeters (mm)
+              Wednesday
             </Button>
             <Button
-              onClick={() => handleRadioChange("precipitation", "inches")}
-              isSelected={selectedOptions.precipitation === "inches"}
+              onClick={() => setSelectedDay("Thursday")}
+              isSelected={selectedDay === "Thursday"}
             >
-              Inches (in)
+              Thursday
+            </Button>
+            <Button
+              onClick={() => setSelectedDay("Friday")}
+              isSelected={selectedDay === "Friday"}
+            >
+              Friday
+            </Button>
+            <Button
+              onClick={() => setSelectedDay("Saturday")}
+              isSelected={selectedDay === "Saturday"}
+            >
+              Saturday
+            </Button>
+            <Button
+              onClick={() => setSelectedDay("Sunday")}
+              isSelected={selectedDay === "Sunday"}
+            >
+              Sunday
             </Button>
           </div>
         </div>
@@ -134,4 +67,4 @@ function Dropdown({ icon, label }) {
   );
 }
 
-export default Dropdown;
+export { Dropdown };
