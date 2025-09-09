@@ -19,7 +19,7 @@ function WeatherImageInfo({ current, location, loading }) {
       {!loading && (
         <>
           {" "}
-          <div className="mb-4 flex flex-2 flex-col items-center md:mb-0 md:items-start">
+          <div className="mb-4 flex flex-col items-center md:mb-0 md:flex-2 md:items-start">
             <h2 className="text-preset-4">
               {location.city}, {location.country}
             </h2>
@@ -32,7 +32,7 @@ function WeatherImageInfo({ current, location, loading }) {
               }).format(new Date())}
             </p>
           </div>
-          <div className="flex w-full flex-1 items-center justify-center gap-5 px-6 md:justify-end">
+          <div className="flex w-full items-center justify-center gap-5 px-6 md:flex-1 md:justify-end">
             <img
               src="/images/icon-sunny.webp"
               alt="Sunny"
