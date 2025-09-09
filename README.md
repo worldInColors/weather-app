@@ -112,6 +112,9 @@ const handleUnitSwitch = () => {
 
 - Added hardcoded API integeration
 - Fixed some responsive issues
+- Made the search give search results in the dropdown
+- Added loading state
+- Made the search functional when you click on a result
 
 ---
 
@@ -152,3 +155,4 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 
 - ~~Make it work tomorrow~~
 - Fix the hourly forecast
+- Make the daily and hourly forecast work

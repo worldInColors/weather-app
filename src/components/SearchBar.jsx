@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
 
-function SearchBar() {
+function SearchBar({ fetchWeatherData }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   useEffect(() => {
@@ -50,7 +50,19 @@ function SearchBar() {
           <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
             <div className="mb-4 space-y-1">
               {results.map((result) => (
-                <Button key={result.id}>{formatLocation(result)}</Button>
+                <Button
+                  onClick={() => {
+                    console.log(result);
+                    fetchWeatherData(result.latitude, result.longitude, {
+                      name: result.name,
+                      country: result.country,
+                    });
+                    setQuery("");
+                  }}
+                  key={result.id}
+                >
+                  {formatLocation(result)}
+                </Button>
               ))}
             </div>
           </div>
