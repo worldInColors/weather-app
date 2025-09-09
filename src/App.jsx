@@ -8,7 +8,8 @@ function App() {
   return (
     <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col p-4 pb-12 md:p-6 md:pb-20">
       <Navbar />
-      <h1 className="text-preset-2 mt-12 self-center px-4 text-center md:px-30">
+      {/* 388px breakpoint before text looks weird on mobile */}
+      <h1 className="text-preset-2 mt-12 min-w-[388px] self-center px-12 text-center md:px-30">
         How's the sky looking today?
       </h1>
       <SearchBar />

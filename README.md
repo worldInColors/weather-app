@@ -50,6 +50,7 @@ const handleUnitSwitch = () => {
 
 - We got figma file so i ended up re-writing everything to match the design better
 - Made it responsive to work on mobile, tablet and desktop
+- Small fix for the heading getting too big
 
 ## TODO:
 
