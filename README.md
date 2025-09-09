@@ -108,6 +108,11 @@ const handleUnitSwitch = () => {
 - Fixed heading breaking at weird places in small viewports
 - Learned to use `&nbsp;` to prevent weird line breaks
 
+#### Day 4
+
+- Added hardcoded API integeration
+- Fixed some responsive issues
+
 ---
 
 ### What I learned
@@ -145,4 +150,5 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 
 ## TODO:
 
-- Make it work tomorrow
+- ~~Make it work tomorrow~~
+- Fix the hourly forecast

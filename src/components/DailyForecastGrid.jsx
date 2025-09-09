@@ -1,49 +1,49 @@
 import DailyForecastGridItem from "./DailyForecastGridItem";
 
-function DailyForecastGrid() {
+function DailyForecastGrid({ daily }) {
   return (
     <div className="mt-5 grid grid-cols-3 items-end gap-2 gap-y-4 md:flex md:gap-5 lg:justify-center">
       <DailyForecastGridItem
-        day="Wed"
+        day="Tue"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[0]}
+        tempMin={daily.temperature_2m_min[0]}
       />
       <DailyForecastGridItem
         day="Wed"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[1]}
+        tempMin={daily.temperature_2m_min[1]}
       />
       <DailyForecastGridItem
-        day="Wed"
+        day="Thu"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[2]}
+        tempMin={daily.temperature_2m_min[2]}
       />
       <DailyForecastGridItem
-        day="Wed"
+        day="Fri"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[3]}
+        tempMin={daily.temperature_2m_min[3]}
       />
       <DailyForecastGridItem
-        day="Wed"
+        day="Sat"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[4]}
+        tempMin={daily.temperature_2m_min[4]}
       />
       <DailyForecastGridItem
-        day="Wed"
+        day="Sun"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[5]}
+        tempMin={daily.temperature_2m_min[5]}
       />
       <DailyForecastGridItem
-        day="Wed"
+        day="Mon"
         icon="/images/icon-sunny.webp"
-        temp1="22°"
-        temp2="18°"
+        tempMax={daily.temperature_2m_max[6]}
+        tempMin={daily.temperature_2m_min[6]}
       />
     </div>
   );

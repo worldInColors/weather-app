@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-function WeatherImageInfo() {
+function WeatherImageInfo({ current, location }) {
   return (
     <div
       className={clsx(
@@ -16,14 +16,21 @@ function WeatherImageInfo() {
       )}
     >
       <div className="mb-4 flex min-w-[200px] flex-col items-center md:items-start">
-        <h2 className="text-preset-4">Berlin, Germany</h2>
+        <h2 className="text-preset-4">
+          {location.city}, {location.country}
+        </h2>
         <p className="text-preset-6 mt-3 text-neutral-0/80">
-          Tuesday, Aug 5 2025
+          {new Intl.DateTimeFormat("en-US", {
+            weekday: "long",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          }).format(new Date())}
         </p>
       </div>
       <div className="flex w-full items-center justify-center gap-5 px-6 md:justify-end">
         <img src="/images/icon-sunny.webp" alt="Sunny" className="h-30 w-30" />
-        <p className="text-preset-1">20°</p>
+        <p className="text-preset-1">{Math.round(current.temperature_2m)}°</p>
       </div>
     </div>
   );

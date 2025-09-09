@@ -13,7 +13,7 @@ function HourlyForecast() {
   ];
 
   return (
-    <div className="mt-8 min-w-[270px] rounded-xl bg-neutral-800 p-4">
+    <div className="mt-8 min-w-[300px] rounded-xl bg-neutral-800 p-4">
       <div className="flex items-center justify-between">
         <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown label="Tuesday" />

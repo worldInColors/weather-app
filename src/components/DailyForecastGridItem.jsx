@@ -1,11 +1,11 @@
-function DailyForecastGridItem({ day, icon, temp1, temp2 }) {
+function DailyForecastGridItem({ day, icon, tempMax, tempMin }) {
   return (
-    <div className="flex min-w-[90px] flex-col items-center rounded-xl border border-neutral-600 bg-neutral-800 px-4 py-5">
+    <div className="flex min-w-[100px] flex-col items-center rounded-xl border border-neutral-600 bg-neutral-800 px-4 py-5">
       <h3>{day}</h3>
       <img src={icon} alt={day} className="h-15 w-15" />
       <div className="mt-2 flex w-full justify-between text-sm">
-        <p className="text-preset-7">{temp1}</p>
-        <p className="text-preset-7">{temp2}</p>
+        <p className="text-preset-7">{Math.round(tempMax)}°</p>
+        <p className="text-preset-7">{Math.round(tempMin)}°</p>
       </div>
     </div>
   );
