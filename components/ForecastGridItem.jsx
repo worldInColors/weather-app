@@ -1,4 +1,4 @@
-function ForecastGridItem({ day, icon, temp1, temp2 }) {
+function DailyForecastGridItem({ day, icon, temp1, temp2 }) {
   return (
     <div className="flex flex-col items-center bg-neutral-800 p-4  rounded-xl">
       <h3>{day}</h3>
@@ -11,4 +11,4 @@ function ForecastGridItem({ day, icon, temp1, temp2 }) {
   );
 }
 
-export default ForecastGridItem;
+export default DailyForecastGridItem;

@@ -2,31 +2,34 @@ import { Dropdown } from "./Dropdown";
 
 function HourlyForecast() {
   const hourlyData = [
-    { time: "3 PM", temp: "20°", icon: "/images/icon-sunny.webp" },
-    { time: "4 PM", temp: "22°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "5 PM", temp: "19°", icon: "/images/icon-overcast.webp" },
-    { time: "6 PM", temp: "18°", icon: "/images/icon-rain.webp" },
-    { time: "7 PM", temp: "17°", icon: "/images/icon-rain.webp" },
-    { time: "8 PM", temp: "16°", icon: "/images/icon-overcast.webp" },
-    { time: "9 PM", temp: "15°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "10 PM", temp: "14°", icon: "/images/icon-overcast.webp" },
+    { time: "3 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
+    { time: "4 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
+    { time: "5 PM", temp: "20°", icon: "/images/icon-sunny.webp" },
+    { time: "6 PM", temp: "19°", icon: "/images/icon-partly-cloudy.webp" },
+    { time: "7 PM", temp: "18°", icon: "/images/icon-partly-cloudy.webp" },
+    { time: "8 PM", temp: "18°", icon: "/images/icon-fog.webp" },
+    { time: "9 PM", temp: "17°", icon: "/images/icon-partly-cloudy.webp" },
+    { time: "10 PM", temp: "17°", icon: "/images/icon-partly-cloudy.webp" },
   ];
 
   return (
-    <div className="bg-neutral-800 p-4 rounded-xl">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-white font-dm-semibold text-lg">Hourly Forecast</h2>
+    <div className="mt-8 min-w-[270px] rounded-xl bg-neutral-800 p-4">
+      <div className="flex items-center justify-between">
+        <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown label="Tuesday" />
       </div>
-      <div className="flex gap-3 overflow-x-auto">
+
+      <div className="mt-4 flex flex-col gap-4">
         {hourlyData.map((hour, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-neutral-700 p-4 rounded-xl min-w-[80px] text-center"
+            className="flex items-center justify-between rounded-lg border border-neutral-600 bg-neutral-700 p-3 transition-colors"
           >
-            <p className="text-neutral-200 text-sm mb-2">{hour.time}</p>
-            <img src={hour.icon} className="w-8 h-8 mb-2" alt="Weather icon" />
-            <p className="text-white font-dm-medium">{hour.temp}</p>
+            <div className="flex flex-1 items-center">
+              <img src={hour.icon} alt="Weather icon" className="h-10 w-10" />
+              <p className="text-preset-5-md min-w-[50px]">{hour.time}</p>
+            </div>
+            <p className="text-right">{hour.temp}</p>
           </div>
         ))}
       </div>

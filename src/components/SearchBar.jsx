@@ -1,16 +1,40 @@
+import { useState } from "react";
+import { DropdownButton as Button } from "./DropdownButton";
+
 function SearchBar() {
+  const [query, setQuery] = useState("");
   return (
-    <div className="flex items-center bg-neutral-700 p-3 text-neutral-200 rounded-xl gap-3 mt-8">
-      <img
-        src="/images/icon-search.svg"
-        alt="Search"
-        className="w-5 h-5 opacity-70"
-      />
-      <input
-        type="text"
-        placeholder="Search for a place..."
-        className="bg-transparent outline-none flex-1 font-dm-sans placeholder:text-neutral-300"
-      />
+    <div className="mt-12 flex flex-col gap-4 md:flex-row lg:max-w-[700px] lg:min-w-[660px] lg:flex-shrink-0 lg:grow lg:items-center lg:self-center">
+      <div className="relative flex items-center gap-3 rounded-xl bg-neutral-700 p-3 text-neutral-200 md:flex-1">
+        <img
+          src="/images/icon-search.svg"
+          alt="Search"
+          className="h-5 w-5 opacity-70"
+        />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="text"
+          placeholder="Search for a place..."
+          className="text-preset-5 plcaeholder:text-neutral-200 flex-1 bg-transparent outline-none md:flex-1"
+        />
+
+        {query && (
+          <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
+            <div className="mb-4 space-y-1">
+              <Button>City name</Button>
+              <Button>City name</Button>
+
+              <Button>City name</Button>
+
+              <Button>City name</Button>
+            </div>
+          </div>
+        )}
+      </div>
+      <button className="text-preset-5-md w-full rounded-xl bg-blue-500 px-6 py-4 text-neutral-0 md:w-auto md:flex-shrink-0">
+        Search
+      </button>
     </div>
   );
 }

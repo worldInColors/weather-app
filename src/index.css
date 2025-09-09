@@ -41,7 +41,7 @@
   --font-family-dm-sans: 'DM Sans', sans-serif;
   --font-family-bricolage: 'Bricolage Grotesque', sans-serif;
   
-  --font-size-base: 18px;
+
 }
 
 /* Font Faces */
@@ -72,30 +72,65 @@
 :root {
   background-color: hsl(243, 96%, 9%);
   color: hsl(0, 0%, 100%);
-  font-size: 18px;
   font-family: 'DM Sans', sans-serif;
+
 }
 
 @layer utilities {
-  /* Custom Font Weight Utilities */
-  .font-dm-light {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-  }
-  .font-dm-medium {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-  }
-  .font-dm-semibold {
-    font-family: 'DM Sans', sans-serif;
+  .text-preset-1 {
+    font-size: 96px;
+    line-height: 100%;
+    letter-spacing: -2px;
     font-weight: 600;
+    font-style: italic;
   }
-  .font-dm-bold {
-    font-family: 'DM Sans', sans-serif;
+  .text-preset-2 {
+    font-size: 52px;
+    line-height: 120%;
+    letter-spacing: 0;
     font-weight: 700;
-  }
-  .font-bricolage-bold {
     font-family: 'Bricolage Grotesque', sans-serif;
+  }
+  .text-preset-3 {
+    font-size: 32px;
+    line-height: 100%;
+    font-weight: 300;
+    letter-spacing: 0;
+  }
+  .text-preset-4 {
+    font-size: 24px;
+    line-height: 120%;
     font-weight: 700;
+    letter-spacing: 0;
+  }
+  .text-preset-5::placeholder, .text-preset-5 {
+    font-size: 20px;
+    line-height: 120%;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+  .text-preset-5-md {
+    font-size: 20px;
+    line-height: 120%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .text-preset-6 {
+    font-size: 18px;
+    line-height: 120%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .text-preset-7 {
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .text-preset-8 {
+    font-size: 14px;
+    line-height: 120%;
+    font-weight: 400;
+    letter-spacing: 0;
   }
 }

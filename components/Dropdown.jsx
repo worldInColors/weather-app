@@ -1,6 +1,6 @@
 import { ChevronDown, Settings } from "lucide-react";
 import { useState } from "react";
-import { DropdownButton as Button } from "./DropdownButton";
+import { Button } from "./Button";
 
 function Dropdown({ label }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,13 +10,13 @@ function Dropdown({ label }) {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 rounded-lg bg-neutral-600 p-2 text-neutral-200"
+        className="flex items-center gap-1 bg-neutral-600 p-2 text-neutral-200 rounded-lg"
       >
         <span>{selectedDay}</span>
         <ChevronDown />
       </button>
       {isOpen && (
-        <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
+        <div className="absolute top-full mt-1 right-0 bg-neutral-800 p-2 rounded-xl shadow-lg z-10 min-w-full w-[200px]">
           <div className="mb-4 space-y-1">
             <Button
               onClick={() => setSelectedDay("Monday")}

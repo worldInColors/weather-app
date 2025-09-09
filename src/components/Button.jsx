@@ -1,16 +1,13 @@
-function Button({ onClick, children, isSelected }) {
+import { ChevronDown, Settings } from "lucide-react";
+
+function Button() {
   return (
-    <button
-      onClick={onClick}
-      className={`w-full text-left px-2 py-2 rounded text-sm transition-colors hover:bg-neutral-700 cursor-pointer ${
-        isSelected ? "bg-neutral-700 " : ""
-      }`}
-    >
-      <div className="flex justify-between items-center">
-        {children}
-        <span>{isSelected ? "✓" : ""}</span>
-      </div>
+    <button className="flex items-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-0">
+      <Settings />
+      <span className="text-sm">Units</span>
+      <ChevronDown />
     </button>
   );
 }
-export { Button };
+
+export default Button;

@@ -22,6 +22,7 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 - Added hover and selected states to the dropdowns
   -# Future me, so, trying to make `Dropdown` re-usable was probably pretty stupid since the added complexity isnt worth it, I might try to make another dropdown and make it re-usable for the days and search one, but making the Units one re-usable isn't worth it in my opinion.
   This was somewhat a challenging part:
+- Added Dropdown for weekdays and for the Searchbar
 
 ```jsx
 const handleUnitSwitch = () => {
@@ -44,6 +45,20 @@ const handleUnitSwitch = () => {
   }
 };
 ```
+
+### Day 3
+
+- We got figma file so i ended up re-writing everything to match the design better
+- Made it responsive to work on mobile, tablet and desktop
+
+## TODO:
+
+- Fix Icons
+  -~~ Fix responsive-ness~~
+- ~~Fix searchbar~~
+- ~~Resizing issue (not that big of a deal )~~
+- ~~Fix Daily forecast cards being too small~~
+- Work on functionality
 
 ## Tech Stack
 

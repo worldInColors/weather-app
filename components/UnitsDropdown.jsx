@@ -1,12 +1,8 @@
 import { ChevronDown, Settings } from "lucide-react";
 import { useState } from "react";
-import { DropdownButton as Button } from "./DropdownButton";
+import { Button } from "./Button";
 
-function Heading({ children }) {
-  return <h3 className="text-preset-8 mb-2 px-2">{children}</h3>;
-}
-
-function UnitsDropdown() {
+function UnitsDropdown({ icon, label }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({
     system: "metric",
@@ -44,15 +40,15 @@ function UnitsDropdown() {
   return (
     <div className="relative">
       <button
-        className="flex items-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-0"
         onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-1 bg-neutral-700 p-2 text-neutral-200 rounded-md"
       >
-        <Settings />
-        <span className="text-sm">Units</span>
+        {icon}
+        <span>{label}</span>
         <ChevronDown />
       </button>
       {isOpen && (
-        <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
+        <div className="absolute top-full mt-1 right-0 bg-neutral-800 p-2 rounded-xl shadow-lg z-10 min-w-full w-[200px]">
           {/* System Selection */}
           <div className="mb-4 space-y-1">
             <Button onClick={() => handleUnitSwitch()}>
@@ -62,7 +58,9 @@ function UnitsDropdown() {
           </div>
 
           {/* Temperature Section */}
-          <Heading>Temperature</Heading>
+          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
+            Temperature
+          </h3>
           <div className="mb-4 space-y-1">
             <Button
               onClick={() => handleRadioChange("temperature", "celsius")}
@@ -79,7 +77,9 @@ function UnitsDropdown() {
           </div>
 
           {/* Wind Speed Section */}
-          <Heading>Wind Speed</Heading>
+          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
+            Wind Speed
+          </h3>
           <div className="mb-4 space-y-1">
             <Button
               onClick={() => handleRadioChange("windSpeed", "kmh")}
@@ -96,7 +96,9 @@ function UnitsDropdown() {
           </div>
 
           {/* Precipitation Section */}
-          <Heading>Precipitation</Heading>
+          <h3 className="text-neutral-300 text-xs mb-2 uppercase tracking-wide">
+            Precipitation
+          </h3>
           <div className="space-y-1">
             <Button
               onClick={() => handleRadioChange("precipitation", "mm")}
