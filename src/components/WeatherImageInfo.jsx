@@ -15,7 +15,7 @@ function WeatherImageInfo({ current, location }) {
         "md:aspect-[16/9] md:max-h-[300px] md:flex-row md:justify-between md:bg-[url('/images/bg-today-large.svg')] md:p-6 lg:mb-8",
       )}
     >
-      <div className="mb-4 flex min-w-[200px] flex-col items-center md:items-start">
+      <div className="mb-4 flex min-w-[300px] flex-col items-center md:mb-0 md:items-start">
         <h2 className="text-preset-4">
           {location.city}, {location.country}
         </h2>
