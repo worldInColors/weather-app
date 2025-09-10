@@ -2,10 +2,20 @@ import { ChevronDown, Settings } from "lucide-react";
 import { useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
 
-function Dropdown({ label }) {
+function Dropdown({ selectedDay, setSelectedDay }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedDay, setSelectedDay] = useState("Monday");
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const todayIndex = new Date().getDay();
 
+  const rotatedDays = [...days.slice(todayIndex), ...days.slice(0, todayIndex)];
   return (
     <div className="relative">
       <button
@@ -18,48 +28,18 @@ function Dropdown({ label }) {
       {isOpen && (
         <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
           <div className="mb-4 space-y-1">
-            <Button
-              onClick={() => setSelectedDay("Monday")}
-              isSelected={selectedDay === "Monday"}
-            >
-              Monday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Tuesday")}
-              isSelected={selectedDay === "Tuesday"}
-            >
-              Tuesday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Wednesday")}
-              isSelected={selectedDay === "Wednesday"}
-            >
-              Wednesday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Thursday")}
-              isSelected={selectedDay === "Thursday"}
-            >
-              Thursday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Friday")}
-              isSelected={selectedDay === "Friday"}
-            >
-              Friday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Saturday")}
-              isSelected={selectedDay === "Saturday"}
-            >
-              Saturday
-            </Button>
-            <Button
-              onClick={() => setSelectedDay("Sunday")}
-              isSelected={selectedDay === "Sunday"}
-            >
-              Sunday
-            </Button>
+            {rotatedDays.map((day) => (
+              <Button
+                key={day}
+                onClick={() => {
+                  setSelectedDay(day);
+                  setIsOpen(false);
+                }}
+                isSelected={selectedDay === day}
+              >
+                {day}
+              </Button>
+            ))}
           </div>
         </div>
       )}

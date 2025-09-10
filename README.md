@@ -116,6 +116,13 @@ const handleUnitSwitch = () => {
 - Added loading state
 - Made the search functional when you click on a result
 
+#### Day 5
+
+- Made images and icons pre-load so they dont flicker
+- Made icons work depending on weather
+- Made the dropdown in the hourlyforecast show the current day at the first option to improve UX
+- Made the DailyForecast show Today's weather as Today instead of the day name
+
 ---
 
 ### What I learned

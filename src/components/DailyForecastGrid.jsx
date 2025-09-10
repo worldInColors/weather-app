@@ -1,3 +1,4 @@
+import { getWeatherIconPath } from "../utils/weatherIcons";
 import DailyForecastGridItem from "./DailyForecastGridItem";
 const getDayName = (dateString, index) => {
   const date = new Date(dateString);
@@ -28,7 +29,7 @@ function DailyForecastGrid({ daily, loading }) {
         <DailyForecastGridItem
           key={dateString}
           day={getDayName(dateString, index)}
-          icon="/images/icon-sunny.webp"
+          icon={getWeatherIconPath(daily?.weather_code?.[index], true)}
           tempMax={daily?.temperature_2m_max?.[index]}
           tempMin={daily?.temperature_2m_min?.[index]}
           loading={loading}

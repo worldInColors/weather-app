@@ -1,6 +1,11 @@
 import clsx from "clsx";
+import { getWeatherIconPath } from "../utils/weatherIcons";
 
 function WeatherImageInfo({ current, location, loading }) {
+  const iconPath = getWeatherIconPath(
+    current?.weather_code,
+    new Date().getHours() >= 6 && new Date().getHours() < 18,
+  );
   return (
     <div
       className={clsx(
@@ -33,11 +38,7 @@ function WeatherImageInfo({ current, location, loading }) {
             </p>
           </div>
           <div className="flex w-full items-center justify-center gap-5 px-6 md:flex-1 md:justify-end">
-            <img
-              src="/images/icon-sunny.webp"
-              alt="Sunny"
-              className="h-30 w-30"
-            />
+            <img src={iconPath} alt="Sunny" className="h-30 w-30" />
             <p className="text-preset-1">
               {Math.round(current.temperature_2m)}°
             </p>

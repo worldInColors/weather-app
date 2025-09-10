@@ -1,51 +1,84 @@
+import { useState } from "react";
 import { Dropdown } from "./Dropdown";
+import { getWeatherIconPath } from "../utils/weatherIcons";
 
-function HourlyForecast() {
-  const hourlyData = [
-    { time: "12 AM", temp: "16°", icon: "/images/icon-sunny.webp" },
-    { time: "1 AM", temp: "16°", icon: "/images/icon-sunny.webp" },
-    { time: "2 AM", temp: "15°", icon: "/images/icon-sunny.webp" },
-    { time: "3 AM", temp: "15°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "4 AM", temp: "15°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "5 AM", temp: "14°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "6 AM", temp: "14°", icon: "/images/icon-fog.webp" },
-    { time: "7 AM", temp: "15°", icon: "/images/icon-fog.webp" },
-    { time: "8 AM", temp: "16°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "9 AM", temp: "17°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "10 AM", temp: "18°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "11 AM", temp: "19°", icon: "/images/icon-sunny.webp" },
-    { time: "12 PM", temp: "20°", icon: "/images/icon-sunny.webp" },
-    { time: "1 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "2 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "3 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "4 PM", temp: "20°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "5 PM", temp: "20°", icon: "/images/icon-sunny.webp" },
-    { time: "6 PM", temp: "19°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "7 PM", temp: "18°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "8 PM", temp: "18°", icon: "/images/icon-fog.webp" },
-    { time: "9 PM", temp: "17°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "10 PM", temp: "17°", icon: "/images/icon-partly-cloudy.webp" },
-    { time: "11 PM", temp: "16°", icon: "/images/icon-sunny.webp" },
-  ];
+function HourlyForecast({ hourly, loading }) {
+  const today = new Date();
+  const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
+  const [selectedDay, setSelectedDay] = useState(dayName);
+
+  if (loading) {
+    return (
+      <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
+        <div className="sticky top-0 z-10 bg-neutral-800 pb-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-dm-semibold text-lg text-white">
+              Hourly forecast
+            </h2>
+            <Dropdown
+              selectedDay={selectedDay}
+              setSelectedDay={setSelectedDay}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+          {new Array(24).fill(null).map((_, index) => (
+            <div
+              key={index}
+              className="flex min-h-[58px] items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+            ></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const hourlyWithDays = hourly.time.map((timeStr, index) => {
+    const date = new Date(timeStr);
+    const hour = date.getHours();
+    const isDay = hour >= 6 && hour < 18;
+    return {
+      time: timeStr,
+      dayName: date.toLocaleDateString("en-US", { weekday: "long" }),
+      formattedTime: date.toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      }),
+      temperature: Math.round(hourly.temperature_2m[index]),
+      icon: getWeatherIconPath(hourly.weather_code[index], isDay),
+    };
+  });
+
+  // Filter to only show hours for the selected day
+  const selectedDayHours = hourlyWithDays.filter(
+    (hour) => hour.dayName === selectedDay,
+  );
 
   return (
-    <div className="mt-8 max-h-[700px] w-full min-w-[300px] overflow-y-auto rounded-xl bg-neutral-800 p-6">
-      <div className="flex items-center justify-between">
-        <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
-        <Dropdown label="Tuesday" />
+    <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
+      <div className="sticky top-0 bg-neutral-800 pb-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-dm-semibold text-lg text-white">
+            Hourly forecast
+          </h2>
+          <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+        </div>
       </div>
 
-      <div className="mt-4 flex flex-col gap-4">
-        {hourlyData.map((hour, index) => (
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+        {selectedDayHours.map((hour, index) => (
           <div
             key={index}
-            className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 transition-colors"
+            className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
           >
             <div className="flex flex-1 items-center">
               <img src={hour.icon} alt="Weather icon" className="h-10 w-10" />
-              <p className="text-preset-5-md min-w-[50px]">{hour.time}</p>
+              <p className="text-preset-5-md min-w-[50px]">
+                {hour.formattedTime}
+              </p>
             </div>
-            <p className="text-right">{hour.temp}</p>
+            <p className="text-right">{hour.temperature}°</p>
           </div>
         ))}
       </div>

@@ -6,12 +6,16 @@ import DailyForecastGrid from "./components/DailyForecastGrid";
 import HourlyForecast from "./components/HourlyForecast";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { convertWeatherData } from "./utils/unitConverters";
+import { usePreloadImages } from "./utils/hooks/usePreloadImage";
+import { allIcons } from "./utils/weatherIcons";
+import { RefreshCw } from "lucide-react";
 const baseOptions = {
   temperature: "celsius",
   windSpeed: "kmh",
   precipitation: "mm",
 };
 function App() {
+  usePreloadImages(allIcons);
   const [rawData, setRawData] = useState(null);
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,8 +38,7 @@ function App() {
         setLoading(false);
         return;
       }
-      const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_min,temperature_2m_max&hourly=temperature_2m&current=temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,wind_speed_10m&wind_speed_unit=${baseOptions.windSpeed}&temperature_unit=${baseOptions.temperature}&precipitation_unit=${baseOptions.precipitation}`;
-
+      const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_min,temperature_2m_max,weather_code&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,wind_speed_10m,weather_code&wind_speed_unit=${baseOptions.windSpeed}&temperature_unit=${baseOptions.temperature}&precipitation_unit=${baseOptions.precipitation}`;
       try {
         const weatherResponse = await fetch(WEATHER_URL);
         if (!weatherResponse.ok) {
@@ -60,16 +63,15 @@ function App() {
                 city:
                   locationData.address?.city ||
                   locationData.address?.town ||
-                  locationData.address?.village ||
-                  "Unknown City",
-                country: locationData.address?.country || "Unknown Country",
+                  locationData.address?.village,
+                country: locationData.address?.country,
               });
             } else {
-              setLocation({ city: "Unknown City", country: "Unknown Country" });
+              setError("Unable to retrieve location");
             }
           } catch (geocodingError) {
             console.error("Geocoding error:", geocodingError);
-            setLocation({ city: "Unknown City", country: "Unknown Country" });
+            setError("Unable to retrieve location");
           }
         }
 
@@ -93,8 +95,8 @@ function App() {
           },
           (error) => {
             console.error("Error getting location:", error);
-            console.log("Falling back to default location: Cairo");
-            fetchWeatherData(30.0444, 31.2357);
+
+            setError(error.message);
           },
           {
             enableHighAccuracy: true,
@@ -104,7 +106,7 @@ function App() {
         );
       } else {
         console.error("Geolocation is not supported by this browser");
-        fetchWeatherData(30.0444, 31.2357);
+        setError("Geolocation is not supported by this browser");
       }
     };
 
@@ -117,20 +119,23 @@ function App() {
   }, [rawData, selectedOptions]);
 
   const { current, daily, hourly } = data || {};
+  console.log(current, daily, hourly);
 
   if (error) {
     return (
-      <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col items-center justify-center p-4">
-        <h2 className="text-preset-3 mb-4 text-red-600">
-          Error loading weather data
-        </h2>
-        <p className="text-preset-6 text-gray-600">{error}</p>
-        <button
-          onClick={() => window.location.reload()}
-          className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-        >
-          Try Again
-        </button>
+      <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col p-4 pb-12 md:p-6 md:pb-20 lg:px-28">
+        <Navbar />
+        <div className="mt-16 flex flex-col items-center justify-center">
+          <h2 className="text-preset-2 mb-6">Something went wrong</h2>
+          <p className="text-preset-5-md text-neutral-200">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 flex cursor-pointer items-center gap-2 rounded bg-neutral-800 px-4 py-3"
+          >
+            <RefreshCw className="h-6 w-6" />
+            <span>Try Again</span>
+          </button>
+        </div>
       </div>
     );
   }
