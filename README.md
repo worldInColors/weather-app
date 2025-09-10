@@ -153,6 +153,7 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 
 ## TODO:
 
-- ~~Make it work tomorrow~~
 - Fix the hourly forecast
 - Make the daily and hourly forecast work
+- ~~Fix the resizing thing since its pissing me off (probably by resizing the left column instead of the right)~~
+- Fix this classes monstrosity

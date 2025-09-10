@@ -1,10 +1,13 @@
 import UnitsDropdown from "./UnitsDropdown";
 
-function Navbar() {
+function Navbar({ selectedOptions, setSelectedOptions }) {
   return (
     <div className="flex items-center justify-between">
       <img src="/logo.svg" />
-      <UnitsDropdown />
+      <UnitsDropdown
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
     </div>
   );
 }

@@ -6,14 +6,8 @@ function Heading({ children }) {
   return <h3 className="text-preset-8 mb-2 px-2">{children}</h3>;
 }
 
-function UnitsDropdown() {
+function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState({
-    system: "metric",
-    temperature: "celsius",
-    windSpeed: "kmh",
-    precipitation: "mm",
-  });
 
   const handleRadioChange = (category, value) => {
     setSelectedOptions((prev) => ({
@@ -29,7 +23,7 @@ function UnitsDropdown() {
         system: "imperial",
         temperature: "fahrenheit",
         windSpeed: "mph",
-        precipitation: "inches",
+        precipitation: "in",
       }));
     } else {
       setSelectedOptions((prev) => ({
@@ -105,8 +99,8 @@ function UnitsDropdown() {
               Millimeters (mm)
             </Button>
             <Button
-              onClick={() => handleRadioChange("precipitation", "inches")}
-              isSelected={selectedOptions.precipitation === "inches"}
+              onClick={() => handleRadioChange("precipitation", "in")}
+              isSelected={selectedOptions.precipitation === "in"}
             >
               Inches (in)
             </Button>

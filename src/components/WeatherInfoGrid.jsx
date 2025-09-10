@@ -1,6 +1,6 @@
 import WeatherInfoGridItem from "./WeatherInfoGridItem";
 
-function WeatherInfoGrid({ current, loading }) {
+function WeatherInfoGrid({ current, loading, selectedOptions }) {
   return (
     <div className="grid grid-cols-2 gap-4 md:flex md:gap-5">
       <WeatherInfoGridItem
@@ -13,11 +13,19 @@ function WeatherInfoGrid({ current, loading }) {
       />
       <WeatherInfoGridItem
         label="Wind"
-        value={loading ? "–" : `${Math.round(current.wind_speed_10m)} km/h`}
+        value={
+          loading
+            ? "–"
+            : `${Math.round(current.wind_speed_10m)} ${selectedOptions.windSpeed}`
+        }
       />
       <WeatherInfoGridItem
         label="Precipitation"
-        value={loading ? "–" : `${Math.round(current.precipitation)} mm`}
+        value={
+          loading
+            ? "–"
+            : `${Math.round(current.precipitation)} ${selectedOptions.precipitation}`
+        }
       />
     </div>
   );
