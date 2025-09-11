@@ -1,5 +1,5 @@
 import { ChevronDown, Settings } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
 
 function Heading({ children }) {
@@ -8,7 +8,7 @@ function Heading({ children }) {
 
 function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const dropdownRef = useRef(null);
   const handleRadioChange = (category, value) => {
     setSelectedOptions((prev) => ({
       ...prev,
@@ -35,10 +35,25 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
       }));
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!dropdownRef.current.contains(e.target)) setIsOpen(false);
+    };
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
-        className="flex items-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-0"
+        className="flex cursor-pointer items-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-0 transition-colors outline-none hover:bg-neutral-700 focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-900"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Settings />
@@ -46,8 +61,7 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
         <ChevronDown />
       </button>
       {isOpen && (
-        <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
-          {/* System Selection */}
+        <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg">
           <div className="mb-4 space-y-1">
             <Button onClick={() => handleUnitSwitch()}>
               Switch to{" "}

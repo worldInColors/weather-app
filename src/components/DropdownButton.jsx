@@ -4,13 +4,13 @@ function DropdownButton({ onClick, children, isSelected }) {
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left px-2 py-3 rounded-lg text-preset-7 transition-colors hover:bg-neutral-700 cursor-pointer ${
-        isSelected ? "bg-neutral-700 " : ""
+      className={`text-preset-7 w-full cursor-pointer rounded-lg px-2 py-3 text-left transition-colors outline-none hover:bg-neutral-700 focus:ring-2 focus:ring-neutral-0 ${
+        isSelected ? "bg-neutral-700" : ""
       }`}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         {children}
-        <span>{isSelected ? <CheckIcon className="w-4 h-4" /> : ""}</span>
+        <span>{isSelected ? <CheckIcon className="h-4 w-4" /> : ""}</span>
       </div>
     </button>
   );

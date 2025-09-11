@@ -122,6 +122,7 @@ const handleUnitSwitch = () => {
 - Made icons work depending on weather
 - Made the dropdown in the hourlyforecast show the current day at the first option to improve UX
 - Made the DailyForecast show Today's weather as Today instead of the day name
+- Fixed error page
 
 ---
 
@@ -130,6 +131,7 @@ const handleUnitSwitch = () => {
 - When to avoid over-engineering reusability (e.g., units dropdown)
 - Faster responsive layouts with Tailwind utilities
 - Small typography tricks like `&nbsp;` for better control
+- className="contents" to make an element not affect the layour
 
 ---
 
@@ -160,7 +162,11 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 
 ## TODO:
 
-- Fix the hourly forecast
-- Make the daily and hourly forecast work
-- ~~Fix the resizing thing since its pissing me off (probably by resizing the left column instead of the right)~~
-- Fix this classes monstrosity
+- ~~Fix the hourly forecast~~
+- ~~Make the daily and hourly forecast work~~
+- Fix this classes monstrosity (WIP)
+- ~~Remove un-needed icons from the folder, Stop using icons from the image folders and replace iwth ones from lucide~~
+- ~~Improve the dropdowns, make them semenatic using semenatic react probably (close on click outside, make focus locked to them)~~
+- ~~Fix focus outline~~
+- ~~Make search button work so it shows first result~~
+- ~~Make enter button work when in an input so it shows first result~~

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Dropdown } from "./Dropdown";
 import { getWeatherIconPath } from "../utils/weatherIcons";
 
@@ -9,28 +9,7 @@ function HourlyForecast({ hourly, loading }) {
 
   if (loading) {
     return (
-      <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
-        <div className="sticky top-0 z-10 bg-neutral-800 pb-4">
-          <div className="flex items-center justify-between">
-            <h2 className="font-dm-semibold text-lg text-white">
-              Hourly forecast
-            </h2>
-            <Dropdown
-              selectedDay={selectedDay}
-              setSelectedDay={setSelectedDay}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
-          {new Array(24).fill(null).map((_, index) => (
-            <div
-              key={index}
-              className="flex min-h-[58px] items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
-            ></div>
-          ))}
-        </div>
-      </div>
+      <LoadingState selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
     );
   }
 
@@ -66,7 +45,7 @@ function HourlyForecast({ hourly, loading }) {
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto outline-none focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-800">
         {selectedDayHours.map((hour, index) => (
           <div
             key={index}
@@ -86,4 +65,28 @@ function HourlyForecast({ hourly, loading }) {
   );
 }
 
-export default HourlyForecast;
+function LoadingState({ selectedDay, setSelectedDay }) {
+  return (
+    <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
+      <div className="sticky top-0 bg-neutral-800 pb-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-dm-semibold text-lg text-white">
+            Hourly forecast
+          </h2>
+          <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto outline-none focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-800">
+        {new Array(24).fill(null).map((_, index) => (
+          <div
+            key={index}
+            className="flex min-h-[58px] items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+          ></div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default memo(HourlyForecast);
