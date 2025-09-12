@@ -137,6 +137,7 @@ const handleUnitSwitch = () => {
 - Added UV index, Air pressure, and Visibility
 - Fixed height of the HourlyForecast
 - Added bookmarks
+- Fixxed navbar on small screens
 
 ---
 

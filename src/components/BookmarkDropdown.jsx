@@ -27,10 +27,10 @@ function BookmarkDropdown({ bookmarks, setBookmarks, fetchWeatherData }) {
         aria-label="Bookmarks"
       >
         <BookmarkIcon className="h-5 w-5 text-neutral-200 group-hover:text-white" />
-        <span className="text-preset-7 text-neutral-200 group-hover:text-white">
+        <span className="text-preset-7 hidden text-neutral-200 group-hover:text-white sm:inline">
           Bookmarks
         </span>
-        <span className="rounded-full bg-neutral-600 px-2 py-1 text-xs text-neutral-200">
+        <span className="hidden rounded-full bg-neutral-600 px-2 py-1 text-xs text-neutral-200 sm:inline">
           {bookmarks?.length}
         </span>
       </button>
