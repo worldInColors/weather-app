@@ -108,7 +108,7 @@ function App() {
           },
           {
             enableHighAccuracy: true,
-            timeout: 10000,
+            timeout: 25000,
             maximumAge: 600000,
           },
         );
@@ -134,7 +134,9 @@ function App() {
       <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col p-4 pb-12 md:p-6 md:pb-20 lg:px-28">
         <Navbar fetchWeatherData={fetchWeatherData} />
         <div className="mt-16 flex flex-col items-center justify-center">
-          <h2 className="text-preset-2 mb-6">Something went wrong</h2>
+          <h2 className="text-preset-2 mb-6 text-center">
+            Something went wrong
+          </h2>
           <p className="text-preset-5-md text-neutral-200">{error}</p>
           <button
             onClick={() => window.location.reload()}

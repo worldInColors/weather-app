@@ -138,6 +138,8 @@ const handleUnitSwitch = () => {
 - Fixed height of the HourlyForecast
 - Added bookmarks
 - Fixxed navbar on small screens
+- Increased auto location timeout
+- Improved BookmarkDropdown width on smaller screens
 
 ---
 

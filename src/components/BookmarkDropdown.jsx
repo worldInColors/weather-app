@@ -44,7 +44,7 @@ function BookmarkDropdown({ bookmarks, setBookmarks, fetchWeatherData }) {
           />
 
           {/* Dropdown */}
-          <div className="absolute top-full right-0 z-20 mt-2 w-[300px] rounded-xl border border-neutral-600 bg-neutral-800 shadow-xl">
+          <div className="absolute top-full right-0 z-20 mt-2 w-[250px] rounded-xl border border-neutral-600 bg-neutral-800 shadow-xl sm:w-[300px]">
             {/* Header */}
             <div className="border-b border-neutral-600 px-4 py-3">
               <h3 className="text-preset-5-md text-white">Saved Locations</h3>
