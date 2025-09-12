@@ -131,6 +131,12 @@ const handleUnitSwitch = () => {
 - Returns first result when `Enter` or `Search` Button is clicked
 - Improve Code readability by extracting Loading states into their own function component inside the same file
 
+#### Day 7
+
+- Added loading circle and loading circle animation
+- Added UV index, Air pressure, and Visibility
+- Fixed height of the HourlyForecast
+
 ---
 
 ### What I learned
