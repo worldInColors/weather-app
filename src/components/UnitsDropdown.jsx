@@ -57,7 +57,7 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <Settings />
-        <span className="text-sm">Units</span>
+        <span className="text-preset-7">Units</span>
         <ChevronDown />
       </button>
       {isOpen && (

@@ -27,6 +27,10 @@ function App() {
     precipitation: "mm",
   });
 
+  const [bookmarks, setBookmarks] = useState(() => {
+    const saved = localStorage.getItem("bookmarks");
+    return saved ? JSON.parse(saved) : [];
+  });
   const fetchWeatherData = useCallback(
     async (lat, lng, locationInfo = null) => {
       setLoading(true);
@@ -51,6 +55,8 @@ function App() {
           setLocation({
             city: locationInfo.name,
             country: locationInfo.country,
+            lat: lat,
+            lon: lng,
           });
         } else {
           try {
@@ -65,6 +71,8 @@ function App() {
                   locationData.address?.town ||
                   locationData.address?.village,
                 country: locationData.address?.country,
+                lat: lat, // Use the coordinates passed to fetchWeatherData
+                lon: lng,
               });
             } else {
               setError("Unable to retrieve location");
@@ -124,7 +132,7 @@ function App() {
   if (error) {
     return (
       <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col p-4 pb-12 md:p-6 md:pb-20 lg:px-28">
-        <Navbar />
+        <Navbar fetchWeatherData={fetchWeatherData} />
         <div className="mt-16 flex flex-col items-center justify-center">
           <h2 className="text-preset-2 mb-6">Something went wrong</h2>
           <p className="text-preset-5-md text-neutral-200">{error}</p>
@@ -145,6 +153,9 @@ function App() {
       <Navbar
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
+        bookmarks={bookmarks}
+        setBookmarks={setBookmarks}
+        fetchWeatherData={fetchWeatherData}
       />
       <h1 className="text-preset-2 mt-12 self-center px-4 text-center md:px-30">
         How's the sky&nbsp;looking today?
@@ -157,6 +168,8 @@ function App() {
             location={location}
             loading={loading}
             selectedOptions={selectedOptions}
+            bookmarks={bookmarks}
+            setBookmarks={setBookmarks}
           />
           <WeatherInfoGrid
             current={current}

@@ -1,12 +1,56 @@
 import clsx from "clsx";
 import LoadingDots from "./LoadingDots";
 import { getWeatherIconPath } from "../utils/weatherIcons";
+import { Bookmark } from "lucide-react";
 
-function WeatherImageInfo({ current, location, loading }) {
+function WeatherImageInfo({
+  current,
+  location,
+  loading,
+  bookmarks,
+  setBookmarks,
+}) {
   const iconPath = getWeatherIconPath(
     current?.weather_code,
     new Date().getHours() >= 6 && new Date().getHours() < 18,
   );
+
+  const isBookmarked =
+    location &&
+    bookmarks?.some(
+      (b) => b.city === location.city && b.country === location.country,
+    );
+
+  const handleBookmark = () => {
+    if (!location) return;
+    const saved = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+    const bookmark = {
+      name: location.city, // only doing this So i dont have to add extra checks in the logic
+      city: location.city,
+      country: location.country,
+      lat: location.lat,
+      lon: location.lon,
+    };
+
+    const exists = saved.some(
+      (b) => b.city === location.city && b.country === location.country,
+    );
+
+    let updated;
+    if (exists) {
+      // Remove bookmark
+      updated = saved.filter(
+        (b) => !(b.city === location.city && b.country === location.country),
+      );
+    } else {
+      // Add bookmark
+      updated = [...saved, bookmark];
+    }
+    console.log(bookmark);
+    localStorage.setItem("bookmarks", JSON.stringify(updated));
+    setBookmarks(updated);
+  };
 
   return (
     <div
@@ -26,9 +70,20 @@ function WeatherImageInfo({ current, location, loading }) {
       ) : (
         <>
           <div className="mb-4 flex flex-col items-center md:mb-0 md:flex-2 md:items-start">
-            <h2 className="text-preset-4">
-              {location.city}, {location.country}
-            </h2>
+            <div className="flex items-center gap-2">
+              <h2 className="text-preset-4">
+                {location.city}, {location.country}
+              </h2>
+              <button
+                className="group cursor-pointer rounded-full p-1 transition-colors hover:bg-white/10"
+                onClick={handleBookmark}
+                aria-label="Bookmark this location"
+              >
+                <Bookmark
+                  className={`h-5 w-5 text-white/70 transition-colors group-hover:text-white ${isBookmarked ? "fill-white" : ""}`}
+                />
+              </button>
+            </div>
             <p className="text-preset-6 mt-3 text-neutral-0/80">
               {new Intl.DateTimeFormat("en-US", {
                 weekday: "long",

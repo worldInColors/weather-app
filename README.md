@@ -136,6 +136,7 @@ const handleUnitSwitch = () => {
 - Added loading circle and loading circle animation
 - Added UV index, Air pressure, and Visibility
 - Fixed height of the HourlyForecast
+- Added bookmarks
 
 ---
 
@@ -184,10 +185,10 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - ~~Make search button work so it shows first result~~
 - ~~Make enter button work when in an input so it shows first result~~
 - ~~Add the loading circles thingy in the loading state~~
-- Implement some of the bonus features
+- Implement some of the bonus features (2/something)
 - ~~Include UV index, visibility, and air pressure data~~
 - Probably add icons to those too
 - Add animated weather backgrounds that change based on current conditions (need to make some)
 - Light/dark mode
-- Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too
+- ~~Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too~~
 - Animations with framer possibly
