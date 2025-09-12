@@ -38,7 +38,7 @@ function App() {
         setLoading(false);
         return;
       }
-      const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_min,temperature_2m_max,weather_code&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,wind_speed_10m,weather_code&wind_speed_unit=${baseOptions.windSpeed}&temperature_unit=${baseOptions.temperature}&precipitation_unit=${baseOptions.precipitation}`;
+      const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_min,temperature_2m_max,weather_code&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,wind_speed_10m,weather_code,is_day,pressure_msl,uv_index,visibility&wind_speed_unit=${baseOptions.windSpeed}&temperature_unit=${baseOptions.temperature}&precipitation_unit=${baseOptions.precipitation}`;
       try {
         const weatherResponse = await fetch(WEATHER_URL);
         if (!weatherResponse.ok) {

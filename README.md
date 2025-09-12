@@ -124,6 +124,13 @@ const handleUnitSwitch = () => {
 - Made the DailyForecast show Today's weather as Today instead of the day name
 - Fixed error page
 
+#### Day 6
+
+- Made focus outlines work
+- Closes dropdowns when `escape` or when clicked outside
+- Returns first result when `Enter` or `Search` Button is clicked
+- Improve Code readability by extracting Loading states into their own function component inside the same file
+
 ---
 
 ### What I learned
@@ -131,7 +138,7 @@ const handleUnitSwitch = () => {
 - When to avoid over-engineering reusability (e.g., units dropdown)
 - Faster responsive layouts with Tailwind utilities
 - Small typography tricks like `&nbsp;` for better control
-- className="contents" to make an element not affect the layour
+- className="contents" to make an element not affect the layout
 
 ---
 
@@ -170,3 +177,11 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - ~~Fix focus outline~~
 - ~~Make search button work so it shows first result~~
 - ~~Make enter button work when in an input so it shows first result~~
+- ~~Add the loading circles thingy in the loading state~~
+- Implement some of the bonus features
+- ~~Include UV index, visibility, and air pressure data~~
+- Probably add icons to those too
+- Add animated weather backgrounds that change based on current conditions (need to make some)
+- Light/dark mode
+- Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too
+- Animations with framer possibly

@@ -35,7 +35,7 @@ function HourlyForecast({ hourly, loading }) {
   );
 
   return (
-    <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
+    <div className="mt-8 flex max-h-[850px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
       <div className="sticky top-0 bg-neutral-800 pb-4">
         <div className="flex items-center justify-between">
           <h2 className="font-dm-semibold text-lg text-white">
@@ -67,7 +67,7 @@ function HourlyForecast({ hourly, loading }) {
 
 function LoadingState({ selectedDay, setSelectedDay }) {
   return (
-    <div className="mt-8 flex max-h-[693px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
+    <div className="mt-8 flex max-h-[850px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
       <div className="sticky top-0 bg-neutral-800 pb-4">
         <div className="flex items-center justify-between">
           <h2 className="font-dm-semibold text-lg text-white">
