@@ -1,5 +1,16 @@
 import { getWeatherIconPath } from "../utils/weatherIcons";
 import DailyForecastGridItem from "./DailyForecastGridItem";
+import SkeletonCard from "./SkeletonCard";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
 const getDayName = (dateString, index) => {
   const date = new Date(dateString);
   const today = new Date();
@@ -18,24 +29,28 @@ function DailyForecastGrid({ daily, loading }) {
     return (
       <div className="mt-5 grid grid-cols-3 items-end gap-4 gap-y-4 md:flex lg:justify-center">
         {Array.from({ length: 7 }).map((_, index) => (
-          <DailyForecastGridItem key={index} loading={loading} />
+          <SkeletonCard key={index} />
         ))}
       </div>
     );
   }
   return (
-    <div className="mt-5 grid grid-cols-3 items-end gap-4 gap-y-4 md:flex lg:justify-center">
-      {daily?.time?.map((dateString, index) => (
+    <motion.div
+      className="mt-5 grid grid-cols-3 gap-4 md:flex lg:justify-center"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show" // triggers staggered entrance only once
+    >
+      {daily.time.map((dateString, index) => (
         <DailyForecastGridItem
           key={dateString}
           day={getDayName(dateString, index)}
-          icon={getWeatherIconPath(daily?.weather_code?.[index], true)}
-          tempMax={daily?.temperature_2m_max?.[index]}
-          tempMin={daily?.temperature_2m_min?.[index]}
-          loading={loading}
+          icon={getWeatherIconPath(daily.weather_code[index], true)}
+          tempMax={daily.temperature_2m_max[index]}
+          tempMin={daily.temperature_2m_min[index]}
         />
       ))}
-    </div>
+    </motion.div>
   );
 }
 

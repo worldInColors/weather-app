@@ -141,6 +141,11 @@ const handleUnitSwitch = () => {
 - Increased auto location timeout
 - Improved BookmarkDropdown width on smaller screens
 
+#### Day 8, 9 & 10
+
+- Was pretty busy so i didnt do much on these days
+- Introduced some small animations
+
 ---
 
 ### What I learned
@@ -195,3 +200,5 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - Light/dark mode
 - ~~Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too~~
 - Animations with framer possibly
+- Sharable Urls
+- Add hover animations, DailyGridAnimations, more animations

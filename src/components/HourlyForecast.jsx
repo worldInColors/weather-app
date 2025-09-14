@@ -35,31 +35,29 @@ function HourlyForecast({ hourly, loading }) {
   );
 
   return (
-    <div className="mt-8 flex max-h-[850px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
-      <div className="sticky top-0 bg-neutral-800 pb-4">
-        <div className="flex items-center justify-between">
-          <h2 className="font-dm-semibold text-lg text-white">
-            Hourly forecast
-          </h2>
-          <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
-        </div>
+    <div className="mt-8 flex w-full min-w-[300px] flex-col rounded-xl bg-neutral-800">
+      <div className="flex items-center justify-between p-6 pb-4">
+        <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
+        <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto outline-none focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-800">
-        {selectedDayHours.map((hour, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
-          >
-            <div className="flex flex-1 items-center">
-              <img src={hour.icon} alt="Weather icon" className="h-10 w-10" />
-              <p className="text-preset-5-md min-w-[50px]">
-                {hour.formattedTime}
-              </p>
+      <div className="max-h-[750px] overflow-y-auto px-6 pb-6">
+        <div className="flex flex-col gap-4">
+          {selectedDayHours.map((hour, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+            >
+              <div className="flex flex-1 items-center">
+                <img src={hour.icon} alt="Weather icon" className="h-10 w-10" />
+                <p className="text-preset-5-md min-w-[50px]">
+                  {hour.formattedTime}
+                </p>
+              </div>
+              <p className="text-right">{hour.temperature}°</p>
             </div>
-            <p className="text-right">{hour.temperature}°</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -67,23 +65,21 @@ function HourlyForecast({ hourly, loading }) {
 
 function LoadingState({ selectedDay, setSelectedDay }) {
   return (
-    <div className="mt-8 flex max-h-[850px] w-full min-w-[300px] flex-col rounded-xl bg-neutral-800 p-6">
-      <div className="sticky top-0 bg-neutral-800 pb-4">
-        <div className="flex items-center justify-between">
-          <h2 className="font-dm-semibold text-lg text-white">
-            Hourly forecast
-          </h2>
-          <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
-        </div>
+    <div className="mt-8 flex w-full min-w-[300px] flex-col rounded-xl bg-neutral-800">
+      <div className="flex items-center justify-between p-6 pb-4">
+        <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
+        <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto outline-none focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-800">
-        {new Array(24).fill(null).map((_, index) => (
-          <div
-            key={index}
-            className="flex min-h-[58px] items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
-          ></div>
-        ))}
+      <div className="max-h-[750px] overflow-y-auto px-6 pb-6">
+        <div className="flex flex-col gap-4">
+          {new Array(24).fill(null).map((_, index) => (
+            <div
+              key={index}
+              className="flex min-h-[58px] animate-pulse items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+            ></div>
+          ))}
+        </div>
       </div>
     </div>
   );
