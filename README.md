@@ -146,6 +146,10 @@ const handleUnitSwitch = () => {
 - Was pretty busy so i didnt do much on these days
 - Introduced some small animations
 
+#### Day 11
+
+- Added some more animations for HourlyForecast, WeatherInfoGrid,
+
 ---
 
 ### What I learned
@@ -201,4 +205,4 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - ~~Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too~~
 - Animations with framer possibly
 - Sharable Urls
-- Add hover animations, DailyGridAnimations, more animations
+- ~~Add hover animations, DailyGridAnimations, more animations~~

@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import { motion } from "motion/react";
 import { Dropdown } from "./Dropdown";
 import { getWeatherIconPath } from "../utils/weatherIcons";
 
@@ -40,13 +41,19 @@ function HourlyForecast({ hourly, loading }) {
         <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
-
       <div className="max-h-[750px] overflow-y-auto px-6 pb-6">
         <div className="flex flex-col gap-4">
           {selectedDayHours.map((hour, index) => (
-            <div
+            <motion.div
               key={index}
               className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+                delay: index * 0.05,
+              }}
             >
               <div className="flex flex-1 items-center">
                 <img src={hour.icon} alt="Weather icon" className="h-10 w-10" />
@@ -55,7 +62,7 @@ function HourlyForecast({ hourly, loading }) {
                 </p>
               </div>
               <p className="text-right">{hour.temperature}°</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -70,7 +77,6 @@ function LoadingState({ selectedDay, setSelectedDay }) {
         <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
-
       <div className="max-h-[750px] overflow-y-auto px-6 pb-6">
         <div className="flex flex-col gap-4">
           {new Array(24).fill(null).map((_, index) => (

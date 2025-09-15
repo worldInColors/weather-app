@@ -19,10 +19,13 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
       <WeatherInfoGridItem
         label="Feels Like"
         value={loading ? "–" : `${Math.round(current.apparent_temperature)}°`}
+        loading={loading}
+        animationKey={selectedOptions.temperature}
       />
       <WeatherInfoGridItem
         label="Humidity"
         value={loading ? "–" : `${Math.round(current.relative_humidity_2m)}%`}
+        loading={loading}
       />
       <WeatherInfoGridItem
         label="Wind"
@@ -31,6 +34,8 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
             ? "–"
             : `${Math.round(current.wind_speed_10m)} ${selectedOptions.windSpeed}`
         }
+        loading={loading}
+        animationKey={selectedOptions.windSpeed}
       />
       <WeatherInfoGridItem
         label="Precipitation"
@@ -39,18 +44,23 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
             ? "–"
             : `${Math.round(current.precipitation)} ${selectedOptions.precipitation}`
         }
+        loading={loading}
+        animationKey={selectedOptions.precipitation}
       />
       <WeatherInfoGridItem
         label="UV Index"
         value={loading ? "–" : `${Math.round(current.uv_index)}`}
+        loading={loading}
       />
       <WeatherInfoGridItem
         label="Visibility"
         value={loading ? "–" : `${getVisibilityScale(current.visibility)}/10`}
+        loading={loading}
       />
       <WeatherInfoGridItem
         label="Air Pressure"
         value={loading ? "–" : `${Math.round(current.pressure_msl)}\u00A0hPa`}
+        loading={loading}
       />
     </div>
   );
