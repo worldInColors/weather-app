@@ -8,7 +8,28 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { convertWeatherData } from "./utils/unitConverters";
 import { usePreloadImages } from "./utils/hooks/usePreloadImage";
 import { allIcons } from "./utils/weatherIcons";
+import { updateMetaTags } from "./utils/metaTags";
 import { RefreshCw } from "lucide-react";
+
+// URL utility functions
+const getCoordinatesFromUrl = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const lat = urlParams.get("lat");
+  const lng = urlParams.get("lng");
+
+  if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+    return { lat: parseFloat(lat), lng: parseFloat(lng) };
+  }
+  return null;
+};
+
+const updateUrlWithCoordinates = (lat, lng) => {
+  const url = new URL(window.location);
+  url.searchParams.set("lat", lat);
+  url.searchParams.set("lng", lng);
+  window.history.replaceState({}, "", url);
+};
+
 const baseOptions = {
   temperature: "celsius",
   windSpeed: "kmh",
@@ -42,6 +63,10 @@ function App() {
         setLoading(false);
         return;
       }
+
+      // Update URL with new coordinates
+      updateUrlWithCoordinates(lat, lng);
+
       const WEATHER_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_min,temperature_2m_max,weather_code&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,precipitation,relative_humidity_2m,wind_speed_10m,weather_code,is_day,pressure_msl,uv_index,visibility&wind_speed_unit=${baseOptions.windSpeed}&temperature_unit=${baseOptions.temperature}&precipitation_unit=${baseOptions.precipitation}`;
       try {
         const weatherResponse = await fetch(WEATHER_URL);
@@ -71,7 +96,7 @@ function App() {
                   locationData.address?.town ||
                   locationData.address?.village,
                 country: locationData.address?.country,
-                lat: lat, // Use the coordinates passed to fetchWeatherData
+                lat: lat,
                 lon: lng,
               });
             } else {
@@ -94,11 +119,20 @@ function App() {
   );
 
   useEffect(() => {
+    // get coords form url if available
+    const urlCoords = getCoordinatesFromUrl();
+    if (urlCoords) {
+      fetchWeatherData(urlCoords.lat, urlCoords.lng);
+      return;
+    }
+
+    // if no url coords then try geolocation
     const getCurrentLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
+            updateUrlWithCoordinates(latitude, longitude);
             fetchWeatherData(latitude, longitude);
           },
           (error) => {
@@ -127,6 +161,18 @@ function App() {
   }, [rawData, selectedOptions]);
 
   const { current, daily, hourly } = data || {};
+
+  // Update meta tags for social sharing when data is available
+  useEffect(() => {
+    if (current && location && !loading) {
+      updateMetaTags({
+        location,
+        current,
+        selectedOptions,
+      });
+    }
+  }, [current, location, selectedOptions, loading]);
+
   console.log(current, daily, hourly);
 
   if (error) {

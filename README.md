@@ -149,6 +149,8 @@ const handleUnitSwitch = () => {
 #### Day 11
 
 - Added some more animations for HourlyForecast, WeatherInfoGrid,
+- Added lat & lng information in URL so it's shareable
+- Added opengraph embeds
 
 ---
 
