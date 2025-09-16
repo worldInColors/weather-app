@@ -1,4 +1,14 @@
 import WeatherInfoGridItem from "./WeatherInfoGridItem";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
 
 function getVisibilityScale(metersValue) {
   if (metersValue >= 20000) return 10; // Excellent (20km+)
@@ -14,55 +24,66 @@ function getVisibilityScale(metersValue) {
 }
 
 function WeatherInfoGrid({ current, loading, selectedOptions }) {
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+        <WeatherInfoGridItem label="Feels Like" loading={true} />
+        <WeatherInfoGridItem label="Humidity" loading={true} />
+        <WeatherInfoGridItem label="Wind" loading={true} />
+        <WeatherInfoGridItem label="Precipitation" loading={true} />
+        <WeatherInfoGridItem label="UV Index" loading={true} />
+        <WeatherInfoGridItem label="Visibility" loading={true} />
+        <WeatherInfoGridItem label="Air Pressure" loading={true} />
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+    <motion.div
+      className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       <WeatherInfoGridItem
         label="Feels Like"
-        value={loading ? "–" : `${Math.round(current.apparent_temperature)}°`}
-        loading={loading}
+        value={`${Math.round(current.apparent_temperature)}°`}
+        loading={false}
         animationKey={selectedOptions.temperature}
       />
       <WeatherInfoGridItem
         label="Humidity"
-        value={loading ? "–" : `${Math.round(current.relative_humidity_2m)}%`}
-        loading={loading}
+        value={`${Math.round(current.relative_humidity_2m)}%`}
+        loading={false}
       />
       <WeatherInfoGridItem
         label="Wind"
-        value={
-          loading
-            ? "–"
-            : `${Math.round(current.wind_speed_10m)} ${selectedOptions.windSpeed}`
-        }
-        loading={loading}
+        value={`${Math.round(current.wind_speed_10m)} ${selectedOptions.windSpeed}`}
+        loading={false}
         animationKey={selectedOptions.windSpeed}
       />
       <WeatherInfoGridItem
         label="Precipitation"
-        value={
-          loading
-            ? "–"
-            : `${Math.round(current.precipitation)} ${selectedOptions.precipitation}`
-        }
-        loading={loading}
+        value={`${Math.round(current.precipitation)} ${selectedOptions.precipitation}`}
+        loading={false}
         animationKey={selectedOptions.precipitation}
       />
       <WeatherInfoGridItem
         label="UV Index"
-        value={loading ? "–" : `${Math.round(current.uv_index)}`}
-        loading={loading}
+        value={`${Math.round(current.uv_index)}`}
+        loading={false}
       />
       <WeatherInfoGridItem
         label="Visibility"
-        value={loading ? "–" : `${getVisibilityScale(current.visibility)}/10`}
-        loading={loading}
+        value={`${getVisibilityScale(current.visibility)}/10`}
+        loading={false}
       />
       <WeatherInfoGridItem
         label="Air Pressure"
-        value={loading ? "–" : `${Math.round(current.pressure_msl)}\u00A0hPa`}
-        loading={loading}
+        value={`${Math.round(current.pressure_msl)}\u00A0hPa`}
+        loading={false}
       />
-    </div>
+    </motion.div>
   );
 }
 

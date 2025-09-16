@@ -8,7 +8,6 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { convertWeatherData } from "./utils/unitConverters";
 import { usePreloadImages } from "./utils/hooks/usePreloadImage";
 import { allIcons } from "./utils/weatherIcons";
-import { updateMetaTags } from "./utils/metaTags";
 import { RefreshCw } from "lucide-react";
 
 // URL utility functions
@@ -161,17 +160,6 @@ function App() {
   }, [rawData, selectedOptions]);
 
   const { current, daily, hourly } = data || {};
-
-  // Update meta tags for social sharing when data is available
-  useEffect(() => {
-    if (current && location && !loading) {
-      updateMetaTags({
-        location,
-        current,
-        selectedOptions,
-      });
-    }
-  }, [current, location, selectedOptions, loading]);
 
   console.log(current, daily, hourly);
 

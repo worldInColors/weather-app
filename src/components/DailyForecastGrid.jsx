@@ -39,7 +39,7 @@ function DailyForecastGrid({ daily, loading }) {
       className="mt-5 grid grid-cols-3 gap-4 md:flex lg:justify-center"
       variants={containerVariants}
       initial="hidden"
-      animate="show" // triggers staggered entrance only once
+      animate="show"
     >
       {daily.time.map((dateString, index) => (
         <DailyForecastGridItem

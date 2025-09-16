@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* Define custom dark variant for manual toggling */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   
+  /* Default (Dark) Colors */
   --color-neutral-0: hsl(0, 0%, 100%);
   --color-neutral-200: hsl(250, 6%, 84%);
   --color-neutral-300: hsl(240, 6%, 70%);
@@ -10,6 +13,16 @@
   --color-neutral-700: hsl(243, 23%, 24%);
   --color-neutral-800: hsl(243, 27%, 20%);
   --color-neutral-900: hsl(243, 96%, 9%);
+  
+  /* Light Mode Colors */
+  --color-light-background: hsl(0, 0%, 98%);
+  --color-light-surface: hsl(0, 0%, 100%);
+  --color-light-surface-variant: hsl(0, 0%, 95%);
+  --color-light-text-primary: hsl(243, 96%, 9%);
+  --color-light-text-secondary: hsl(243, 23%, 30%);
+  --color-light-text-muted: hsl(240, 6%, 50%);
+  --color-light-border: hsl(250, 6%, 84%);
+  --color-light-border-variant: hsl(0, 0%, 90%);
   
   --color-orange-500: hsl(28, 100%, 52%);
   

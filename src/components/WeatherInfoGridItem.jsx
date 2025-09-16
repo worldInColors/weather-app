@@ -1,4 +1,15 @@
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "motion/react";
+import LoadingSkeleton from "./LoadingSkeleton";
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+  },
+};
 
 function WeatherInfoGridItem({
   label,
@@ -8,12 +19,13 @@ function WeatherInfoGridItem({
   animationKey,
 }) {
   return (
-    <div
+    <motion.div
+      variants={itemVariants}
       className={`flex flex-col gap-6 rounded-xl border border-neutral-600 bg-neutral-800 p-5 md:flex-1 ${className}`}
     >
       <h3 className="text-preset-6">{label}</h3>
       {loading ? (
-        <p className="text-preset-3">{value}</p>
+        <LoadingSkeleton className="h-9 w-20" />
       ) : (
         <AnimatePresence mode="wait">
           <motion.p
@@ -28,7 +40,7 @@ function WeatherInfoGridItem({
           </motion.p>
         </AnimatePresence>
       )}
-    </div>
+    </motion.div>
   );
 }
 
