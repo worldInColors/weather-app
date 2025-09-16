@@ -14,7 +14,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,
-            handler: "StaleWhileRevalidate", // Better for offline scenarios
+            handler: "NetworkFirst", // Required when using networkTimeoutSeconds
             options: {
               cacheName: "weather-api-cache",
               expiration: {
@@ -37,7 +37,6 @@ export default defineConfig({
           },
         ],
       },
-      // Add this to ensure offline functionality
       devOptions: {
         enabled: true, // Enable PWA in development
       },
