@@ -155,6 +155,7 @@ const handleUnitSwitch = () => {
 #### Day 12
 
 - Some more small animations for BookmarkDropdown, WeatherInfoGrid, WeatherInfoGridItem
+- Adding PWA integration
 
 ---
 
@@ -205,10 +206,10 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - ~~Add the loading circles thingy in the loading state~~
 - Implement some of the bonus features (2/something)
 - ~~Include UV index, visibility, and air pressure data~~
-- Probably add icons to those too
-- Add animated weather backgrounds that change based on current conditions (need to make some)
+  ~~- Probably add icons to those too~~
+  ~~- Add animated weather backgrounds that change based on current conditions (need to make some)~~
 - Light/dark mode
 - ~~Bookmark icon hat when clicked shows a dropdown with location names, if you click on them it fetches that location weather data, need to be able to bookmark current location too~~
-- Animations with framer possibly
-- Sharable Urls
+- ~~Animations with framer possibly~~
+- ~~Sharable Urls~~
 - ~~Add hover animations, DailyGridAnimations, more animations~~
