@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import tailwindcss from "@tailwindcss/vite";
+
 export default defineConfig({
   plugins: [
     react(),
@@ -9,22 +10,36 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
-        // Precache your static assets
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-        // Custom caching rules for API responses:
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,
-            handler: "NetworkFirst",
+            handler: "StaleWhileRevalidate", // Better for offline scenarios
             options: {
               cacheName: "weather-api-cache",
               expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60, // keep for 60 minutes
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 2, // 2 hours
+              },
+              networkTimeoutSeconds: 10, // Fall back to cache after 10s
+            },
+          },
+          {
+            urlPattern: /^https:\/\/nominatim\.openstreetmap\.org\/.*/i,
+            handler: "CacheFirst", // Location data doesn't change often
+            options: {
+              cacheName: "geocoding-cache",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
               },
             },
           },
         ],
+      },
+      // Add this to ensure offline functionality
+      devOptions: {
+        enabled: true, // Enable PWA in development
       },
     }),
   ],
