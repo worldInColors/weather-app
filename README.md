@@ -152,6 +152,10 @@ const handleUnitSwitch = () => {
 - Added lat & lng information in URL so it's shareable
 - Added opengraph embeds
 
+#### Day 12
+
+- Some more small animations for BookmarkDropdown, WeatherInfoGrid, WeatherInfoGridItem
+
 ---
 
 ### What I learned

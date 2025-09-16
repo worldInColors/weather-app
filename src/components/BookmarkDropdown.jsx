@@ -67,10 +67,12 @@ function BookmarkDropdown({ bookmarks, setBookmarks, fetchWeatherData }) {
                   {bookmarks.map((bookmark) => (
                     <div
                       key={`${bookmark.city}-${bookmark.country}`}
-                      className="group flex cursor-pointer items-center justify-between rounded-lg p-3 transition-colors hover:bg-neutral-700"
+                      className="group relative flex cursor-pointer items-center justify-between overflow-hidden rounded-lg p-3 transition-colors"
                       onClick={() => handleSelectBookmark(bookmark)}
                     >
-                      <div className="flex min-w-0 flex-1 items-center gap-3">
+                      <div className="absolute inset-0 -translate-x-full transform bg-neutral-700 transition-transform duration-300 ease-out group-hover:translate-x-0" />
+
+                      <div className="relative flex min-w-0 flex-1 items-center gap-3">
                         <MapPin className="h-4 w-4 flex-shrink-0 text-neutral-400" />
                         <div className="min-w-0 flex-1">
                           <p className="text-preset-5 truncate text-white">
@@ -84,7 +86,7 @@ function BookmarkDropdown({ bookmarks, setBookmarks, fetchWeatherData }) {
 
                       <button
                         onClick={(e) => handleRemoveBookmark(e, bookmark)}
-                        className="flex-shrink-0 rounded-full p-1 text-neutral-400 opacity-0 transition-all group-hover:opacity-100 hover:bg-neutral-600 hover:text-red-400"
+                        className="relative flex-shrink-0 cursor-pointer rounded-full p-1 text-neutral-400 opacity-0 transition-all group-hover:opacity-100 hover:bg-neutral-600 hover:text-red-400"
                         aria-label={`Remove ${bookmark.city} from bookmarks`}
                       >
                         <X className="h-4 w-4" />
