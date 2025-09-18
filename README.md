@@ -137,7 +137,7 @@ const handleUnitSwitch = () => {
 - Added UV index, Air pressure, and Visibility
 - Fixed height of the HourlyForecast
 - Added bookmarks
-- Fixxed navbar on small screens
+- Fixed navbar on small screens
 - Increased auto location timeout
 - Improved BookmarkDropdown width on smaller screens
 
@@ -156,6 +156,12 @@ const handleUnitSwitch = () => {
 
 - Some more small animations for BookmarkDropdown, WeatherInfoGrid, WeatherInfoGridItem
 - Adding PWA integration
+
+#### Day 13 & 14
+
+- Added debounce to search query
+- Animated small chevorns, serach results, dropdowns
+- Fixed ESlint config (used to mark motion as an un-used var)
 
 ---
 

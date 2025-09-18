@@ -1,33 +1,45 @@
 import { useEffect, useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
 import { SearchIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useDebounce } from "use-debounce";
 
 function SearchBar({ fetchWeatherData }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [debouncedQuery] = useDebounce(query, 300);
+
   useEffect(() => {
-    if (query.length === 0) return;
+    if (debouncedQuery.length === 0) {
+      setResults([]);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=5`,
+      `https://geocoding-api.open-meteo.com/v1/search?name=${debouncedQuery}&count=5`,
     )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setResults(data.results || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
       });
-  }, [query]);
+  }, [debouncedQuery]);
 
   const formatLocation = (result) => {
     const parts = [result.name];
-
     if (result.admin1) {
       parts.push(result.admin1);
     }
-
     if (result.country) {
       parts.push(result.country);
     }
-
     return parts.join(", ");
   };
 
@@ -42,6 +54,7 @@ function SearchBar({ fetchWeatherData }) {
       setQuery("");
     }
   };
+
   return (
     <div className="mt-12 flex flex-col gap-4 md:flex-row lg:max-w-[700px] lg:min-w-[660px] lg:flex-shrink-0 lg:grow lg:items-center lg:self-center">
       <form onSubmit={handleSubmit} className="contents">
@@ -57,30 +70,65 @@ function SearchBar({ fetchWeatherData }) {
             />
           </div>
 
-          {query && (
+          {debouncedQuery.length > 0 && (
             <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
-              <div className="mb-4 space-y-1">
-                {results.length > 0 ? (
-                  results.map((result) => (
-                    <Button
-                      onClick={() => {
-                        console.log(result);
-                        fetchWeatherData(result.latitude, result.longitude, {
-                          name: result.name,
-                          country: result.country,
-                        });
-                        setQuery("");
-                      }}
-                      key={result.id}
-                    >
-                      {formatLocation(result)}
-                    </Button>
-                  ))
-                ) : (
-                  <div className="text-preset-6 px-3 py-2 pb-0 text-sm">
+              <div className="space-y-1">
+                {loading ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-preset-6 flex items-center gap-2 px-3 py-2 pb-0 text-sm text-neutral-400"
+                  >
+                    <div className="h-3 w-3 animate-spin rounded-full border border-neutral-500 border-t-transparent"></div>
+                    Searching...
+                  </motion.div>
+                ) : results.length > 0 ? (
+                  <AnimatePresence mode="popLayout">
+                    {results.map((result) => (
+                      <motion.div
+                        key={result.id}
+                        layout
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          transition: {
+                            duration: 0.15,
+                            ease: "easeOut",
+                          },
+                        }}
+                        exit={{
+                          opacity: 0,
+                          transition: { duration: 0.1 },
+                        }}
+                      >
+                        <Button
+                          onClick={() => {
+                            fetchWeatherData(
+                              result.latitude,
+                              result.longitude,
+                              {
+                                name: result.name,
+                                country: result.country,
+                              },
+                            );
+                            setQuery("");
+                          }}
+                        >
+                          {formatLocation(result)}
+                        </Button>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                ) : debouncedQuery.length > 0 ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-preset-6 mb-4 px-3 py-2 pb-0 text-sm"
+                  >
                     No search results found!
-                  </div>
-                )}
+                  </motion.div>
+                ) : null}
               </div>
             </div>
           )}

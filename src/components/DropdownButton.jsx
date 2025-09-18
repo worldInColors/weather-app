@@ -1,5 +1,4 @@
 import { CheckIcon } from "lucide-react";
-// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "motion/react";
 function DropdownButton({ onClick, children, isSelected }) {
   return (

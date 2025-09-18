@@ -1,7 +1,6 @@
 import { getWeatherIconPath } from "../utils/weatherIcons";
 import DailyForecastGridItem from "./DailyForecastGridItem";
 import SkeletonCard from "./SkeletonCard";
-// eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
 
 const containerVariants = {

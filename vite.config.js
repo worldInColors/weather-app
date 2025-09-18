@@ -14,31 +14,31 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/i,
-            handler: "NetworkFirst", // Required when using networkTimeoutSeconds
+            handler: "NetworkFirst",
             options: {
               cacheName: "weather-api-cache",
               expiration: {
                 maxEntries: 50,
                 maxAgeSeconds: 60 * 60 * 2, // 2 hours
               },
-              networkTimeoutSeconds: 10, // Fall back to cache after 10s
+              networkTimeoutSeconds: 10,
             },
           },
           {
             urlPattern: /^https:\/\/nominatim\.openstreetmap\.org\/.*/i,
-            handler: "CacheFirst", // Location data doesn't change often
+            handler: "CacheFirst",
             options: {
               cacheName: "geocoding-cache",
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // 1 week
+                maxAgeSeconds: 60 * 60 * 2, // 2 hours
               },
             },
           },
         ],
       },
       devOptions: {
-        enabled: true, // Enable PWA in development
+        enabled: true,
       },
     }),
   ],

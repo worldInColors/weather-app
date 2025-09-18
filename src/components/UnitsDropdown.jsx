@@ -1,14 +1,31 @@
 import { ChevronDown, Settings } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
+import { AnimatePresence, motion } from "motion/react";
 
 function Heading({ children }) {
   return <h3 className="text-preset-8 mb-2 px-2">{children}</h3>;
 }
 
+const AnimatedSection = ({ children, delay = 0 }) => (
+  <motion.div
+    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{
+      type: "spring",
+      stiffness: 350,
+      damping: 25,
+      delay,
+    }}
+  >
+    {children}
+  </motion.div>
+);
+
 function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
   const handleRadioChange = (category, value) => {
     setSelectedOptions((prev) => ({
       ...prev,
@@ -35,6 +52,7 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
       }));
     }
   };
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!dropdownRef.current.contains(e.target)) setIsOpen(false);
@@ -56,71 +74,104 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
         className="flex cursor-pointer items-center gap-2 rounded-md bg-neutral-800 p-2 text-neutral-0 transition-colors outline-none hover:bg-neutral-700 focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-900"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <Settings />
+        <motion.div
+          animate={{ rotate: isOpen ? 90 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <Settings />
+        </motion.div>
         <span className="text-preset-7 hidden sm:inline">Units</span>
-        <ChevronDown className="hidden sm:inline" />
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="hidden sm:inline"
+        >
+          <ChevronDown />
+        </motion.div>
       </button>
-      {isOpen && (
-        <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg">
-          <div className="mb-4 space-y-1">
-            <Button onClick={() => handleUnitSwitch()}>
-              Switch to{" "}
-              {selectedOptions.system === "metric" ? "Imperial" : "Metric"}
-            </Button>
-          </div>
 
-          {/* Temperature Section */}
-          <Heading>Temperature</Heading>
-          <div className="mb-4 space-y-1">
-            <Button
-              onClick={() => handleRadioChange("temperature", "celsius")}
-              isSelected={selectedOptions.temperature === "celsius"}
-            >
-              Celsius (°C)
-            </Button>
-            <Button
-              onClick={() => handleRadioChange("temperature", "fahrenheit")}
-              isSelected={selectedOptions.temperature === "fahrenheit"}
-            >
-              Fahrenheit (°F)
-            </Button>
-          </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
+              duration: 0.2,
+            }}
+            className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg"
+          >
+            <AnimatedSection delay={0.05}>
+              <div className="mb-4 space-y-1">
+                <Button onClick={() => handleUnitSwitch()}>
+                  Switch to{" "}
+                  {selectedOptions.system === "metric" ? "Imperial" : "Metric"}
+                </Button>
+              </div>
+            </AnimatedSection>
 
-          {/* Wind Speed Section */}
-          <Heading>Wind Speed</Heading>
-          <div className="mb-4 space-y-1">
-            <Button
-              onClick={() => handleRadioChange("windSpeed", "kmh")}
-              isSelected={selectedOptions.windSpeed === "kmh"}
-            >
-              km/h
-            </Button>
-            <Button
-              onClick={() => handleRadioChange("windSpeed", "mph")}
-              isSelected={selectedOptions.windSpeed === "mph"}
-            >
-              mph
-            </Button>
-          </div>
+            {/* Temperature Section */}
+            <AnimatedSection delay={0.1}>
+              <Heading>Temperature</Heading>
+              <div className="mb-4 space-y-1">
+                <Button
+                  onClick={() => handleRadioChange("temperature", "celsius")}
+                  isSelected={selectedOptions.temperature === "celsius"}
+                >
+                  Celsius (°C)
+                </Button>
+                <Button
+                  onClick={() => handleRadioChange("temperature", "fahrenheit")}
+                  isSelected={selectedOptions.temperature === "fahrenheit"}
+                >
+                  Fahrenheit (°F)
+                </Button>
+              </div>
+            </AnimatedSection>
 
-          {/* Precipitation Section */}
-          <Heading>Precipitation</Heading>
-          <div className="space-y-1">
-            <Button
-              onClick={() => handleRadioChange("precipitation", "mm")}
-              isSelected={selectedOptions.precipitation === "mm"}
-            >
-              Millimeters (mm)
-            </Button>
-            <Button
-              onClick={() => handleRadioChange("precipitation", "in")}
-              isSelected={selectedOptions.precipitation === "in"}
-            >
-              Inches (in)
-            </Button>
-          </div>
-        </div>
-      )}
+            {/* Wind Speed Section */}
+            <AnimatedSection delay={0.15}>
+              <Heading>Wind Speed</Heading>
+              <div className="mb-4 space-y-1">
+                <Button
+                  onClick={() => handleRadioChange("windSpeed", "kmh")}
+                  isSelected={selectedOptions.windSpeed === "kmh"}
+                >
+                  km/h
+                </Button>
+                <Button
+                  onClick={() => handleRadioChange("windSpeed", "mph")}
+                  isSelected={selectedOptions.windSpeed === "mph"}
+                >
+                  mph
+                </Button>
+              </div>
+            </AnimatedSection>
+
+            {/* Precipitation Section */}
+            <AnimatedSection delay={0.2}>
+              <Heading>Precipitation</Heading>
+              <div className="space-y-1">
+                <Button
+                  onClick={() => handleRadioChange("precipitation", "mm")}
+                  isSelected={selectedOptions.precipitation === "mm"}
+                >
+                  Millimeters (mm)
+                </Button>
+                <Button
+                  onClick={() => handleRadioChange("precipitation", "in")}
+                  isSelected={selectedOptions.precipitation === "in"}
+                >
+                  Inches (in)
+                </Button>
+              </div>
+            </AnimatedSection>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
