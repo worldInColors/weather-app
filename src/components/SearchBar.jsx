@@ -3,20 +3,29 @@ import { DropdownButton as Button } from "./DropdownButton";
 import { SearchIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useDebounce } from "use-debounce";
-
+import { useOutsideClick } from "../utils/hooks/useClickOutside";
+import { dropDownAnimation } from "../animations/motionVariants";
+import { useEscapeBlur } from "../utils/hooks/useEscapeBlur";
 function SearchBar({ fetchWeatherData }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [debouncedQuery] = useDebounce(query, 300);
+  const [isOpen, setIsOpen] = useState(false);
+  useEscapeBlur();
+  const searchbarRef = useOutsideClick(() => {
+    setQuery("");
+    setIsOpen(false);
+  });
 
   useEffect(() => {
     if (debouncedQuery.length === 0) {
       setResults([]);
       setLoading(false);
+      setIsOpen(false);
       return;
     }
-
+    setIsOpen(true);
     setLoading(true);
     fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${debouncedQuery}&count=5`,
@@ -55,8 +64,23 @@ function SearchBar({ fetchWeatherData }) {
     }
   };
 
+  const handleSelect = (e, result) => {
+    console.log(result);
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(false);
+    setQuery("");
+    fetchWeatherData(result.latitude, result.longitude, {
+      name: result.name,
+      country: result.country,
+    });
+  };
+
   return (
-    <div className="mt-12 flex flex-col gap-4 md:flex-row lg:max-w-[700px] lg:min-w-[660px] lg:flex-shrink-0 lg:grow lg:items-center lg:self-center">
+    <div
+      className="mt-12 flex flex-col gap-4 md:flex-row lg:max-w-[700px] lg:min-w-[660px] lg:flex-shrink-0 lg:grow lg:items-center lg:self-center"
+      ref={searchbarRef}
+    >
       <form onSubmit={handleSubmit} className="contents">
         <div className="relative flex items-center gap-3 rounded-xl bg-neutral-700 p-3 text-neutral-200 outline-none focus-within:ring-2 focus-within:ring-neutral-0 md:flex-1">
           <div className="contents outline-none focus:ring-2 focus:ring-neutral-0">
@@ -70,14 +94,20 @@ function SearchBar({ fetchWeatherData }) {
             />
           </div>
 
-          {debouncedQuery.length > 0 && (
-            <div className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg">
+          {isOpen && (
+            <motion.div
+              variants={dropDownAnimation}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl bg-neutral-800 p-2 shadow-lg"
+            >
               <div className="space-y-1">
                 {loading ? (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-preset-6 flex items-center gap-2 px-3 py-2 pb-0 text-sm text-neutral-400"
+                    className="text-preset-6 mb-4 flex items-center gap-2 px-3 py-2 pb-0 text-sm text-neutral-400"
                   >
                     <div className="h-3 w-3 animate-spin rounded-full border border-neutral-500 border-t-transparent"></div>
                     Searching...
@@ -102,19 +132,7 @@ function SearchBar({ fetchWeatherData }) {
                           transition: { duration: 0.1 },
                         }}
                       >
-                        <Button
-                          onClick={() => {
-                            fetchWeatherData(
-                              result.latitude,
-                              result.longitude,
-                              {
-                                name: result.name,
-                                country: result.country,
-                              },
-                            );
-                            setQuery("");
-                          }}
-                        >
+                        <Button onClick={(e) => handleSelect(e, result)}>
                           {formatLocation(result)}
                         </Button>
                       </motion.div>
@@ -130,7 +148,7 @@ function SearchBar({ fetchWeatherData }) {
                   </motion.div>
                 ) : null}
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
         <button

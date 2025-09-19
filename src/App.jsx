@@ -9,6 +9,7 @@ import { convertWeatherData } from "./utils/unitConverters";
 import { usePreloadImages } from "./utils/hooks/usePreloadImage";
 import { allIcons } from "./utils/weatherIcons";
 import { RefreshCw } from "lucide-react";
+import { motion } from "motion/react";
 
 // URL utility functions
 const getCoordinatesFromUrl = () => {
@@ -193,9 +194,14 @@ function App() {
         setBookmarks={setBookmarks}
         fetchWeatherData={fetchWeatherData}
       />
-      <h1 className="text-preset-2 mt-12 self-center px-4 text-center md:px-30">
+      <motion.h1
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="text-preset-2 mt-12 self-center px-4 text-center md:px-30"
+      >
         How's the sky&nbsp;looking today?
-      </h1>
+      </motion.h1>
       <SearchBar fetchWeatherData={fetchWeatherData} />
       <div className="justify-center lg:flex lg:gap-8">
         <div className="lg:flex lg:flex-2 lg:flex-col">

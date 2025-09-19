@@ -163,6 +163,14 @@ const handleUnitSwitch = () => {
 - Animated small chevorns, serach results, dropdowns
 - Fixed ESlint config (used to mark motion as an un-used var)
 
+#### Day 15 & 16
+
+- Added animations for BookmarksDropdown
+- Added variants and re-used those for animations that are re-used often
+- Added `useOutsideClick` hook to re-use in components
+- Added `useEscapeBlur` hook to blur inputs after clicking escape
+- Added `animations/motionVariants` for the re-used dropdown animations
+
 ---
 
 ### What I learned

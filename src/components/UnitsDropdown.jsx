@@ -1,7 +1,9 @@
 import { ChevronDown, Settings } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { DropdownButton as Button } from "./DropdownButton";
 import { AnimatePresence, motion } from "motion/react";
+import { dropDownAnimation } from "../animations/motionVariants";
+import { useOutsideClick } from "../utils/hooks/useClickOutside";
 
 function Heading({ children }) {
   return <h3 className="text-preset-8 mb-2 px-2">{children}</h3>;
@@ -24,7 +26,7 @@ const AnimatedSection = ({ children, delay = 0 }) => (
 
 function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useOutsideClick(() => setIsOpen(false));
 
   const handleRadioChange = (category, value) => {
     setSelectedOptions((prev) => ({
@@ -53,21 +55,6 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!dropdownRef.current.contains(e.target)) setIsOpen(false);
-    };
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, []);
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -93,15 +80,10 @@ function UnitsDropdown({ selectedOptions, setSelectedOptions }) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 30,
-              duration: 0.2,
-            }}
+            variants={dropDownAnimation}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg"
           >
             <AnimatedSection delay={0.05}>
