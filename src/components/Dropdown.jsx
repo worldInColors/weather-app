@@ -4,6 +4,7 @@ import { DropdownButton as Button } from "./DropdownButton";
 import { AnimatePresence, motion } from "motion/react";
 import { dropDownAnimation } from "../animations/motionVariants";
 import { useOutsideClick } from "../utils/hooks/useClickOutside";
+import { FocusTrap } from "focus-trap-react";
 
 function Dropdown({ selectedDay, setSelectedDay }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +27,7 @@ function Dropdown({ selectedDay, setSelectedDay }) {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex cursor-pointer items-center gap-1 rounded-lg bg-neutral-600 p-2 text-neutral-200 transition-colors outline-none hover:bg-neutral-700 focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-800"
+        className="focus-ring flex cursor-pointer items-center gap-1 rounded-lg bg-neutral-600 p-2 text-neutral-200 transition-colors"
       >
         <span>{selectedDay}</span>
         <motion.div
@@ -39,37 +40,46 @@ function Dropdown({ selectedDay, setSelectedDay }) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            variants={dropDownAnimation}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg"
-          >
-            <div className="mb-4 space-y-1">
-              {rotatedDays.map((day, index) => (
-                <motion.div
-                  key={day}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: index * 0.03,
-                    duration: 0.2,
-                  }}
-                >
-                  <Button
-                    onClick={() => {
-                      setSelectedDay(day);
-                      setIsOpen(false);
-                    }}
-                    isSelected={selectedDay === day}
-                  >
-                    {day}
-                  </Button>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          <>
+            <FocusTrap
+              focusTrapOptions={{
+                initialFocus: false,
+                allowOutsideClick: true,
+              }}
+            >
+              <motion.div
+                variants={dropDownAnimation}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="absolute top-full right-0 z-10 mt-1 w-[200px] min-w-full rounded-xl border border-neutral-600 bg-neutral-800 p-2 shadow-lg"
+              >
+                <div className="mb-4 space-y-1">
+                  {rotatedDays.map((day, index) => (
+                    <motion.div
+                      key={day}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: index * 0.03,
+                        duration: 0.2,
+                      }}
+                    >
+                      <Button
+                        onClick={() => {
+                          setSelectedDay(day);
+                          setIsOpen(false);
+                        }}
+                        isSelected={selectedDay === day}
+                      >
+                        {day}
+                      </Button>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </FocusTrap>
+          </>
         )}
       </AnimatePresence>
     </div>

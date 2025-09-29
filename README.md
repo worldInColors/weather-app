@@ -170,6 +170,9 @@ const handleUnitSwitch = () => {
 - Added `useOutsideClick` hook to re-use in components
 - Added `useEscapeBlur` hook to blur inputs after clicking escape
 - Added `animations/motionVariants` for the re-used dropdown animations
+- Added tabindex and an aria-label for HourlyForecast
+- Added a perload headeer for the bg image in the html
+- Added dev-dist/ to .gitignore
 
 ---
 
@@ -227,3 +230,6 @@ Thanks to the Frontend Mentor community for inspiration and feedback.
 - ~~Animations with framer possibly~~
 - ~~Sharable Urls~~
 - ~~Add hover animations, DailyGridAnimations, more animations~~
+- Delete not-needed Button (litearlly just used once)
+- Maybe skeletons folder and add all the loadings in it..
+- Seriosuly implement light mode

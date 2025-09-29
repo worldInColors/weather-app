@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
 /* Define custom dark variant for manual toggling */
-@custom-variant dark (&:where(.dark, .dark *));
-
+@custom-variant light (&:where(.light, .light *));
 @theme {
   
   /* Default (Dark) Colors */
@@ -13,17 +12,7 @@
   --color-neutral-700: hsl(243, 23%, 24%);
   --color-neutral-800: hsl(243, 27%, 20%);
   --color-neutral-900: hsl(243, 96%, 9%);
-  
-  /* Light Mode Colors */
-  --color-light-background: hsl(0, 0%, 98%);
-  --color-light-surface: hsl(0, 0%, 100%);
-  --color-light-surface-variant: hsl(0, 0%, 95%);
-  --color-light-text-primary: hsl(243, 96%, 9%);
-  --color-light-text-secondary: hsl(243, 23%, 30%);
-  --color-light-text-muted: hsl(240, 6%, 50%);
-  --color-light-border: hsl(250, 6%, 84%);
-  --color-light-border-variant: hsl(0, 0%, 90%);
-  
+
   --color-orange-500: hsl(28, 100%, 52%);
   
   --color-blue-500: hsl(233, 67%, 56%);
@@ -58,6 +47,48 @@
   
 
 }
+@layer theme {
+  :root {
+    @variant light {
+    /* Better contrast light mode colors */
+    --color-neutral-0: hsl(243, 96%, 9%);        /* Dark text - keeps same */
+    --color-neutral-200: hsl(243, 23%, 30%);     /* Medium-dark text */
+    --color-neutral-300: hsl(240, 6%, 50%);      /* Muted text - darker for better contrast */
+    --color-neutral-600: hsl(240, 8%, 88%);      /* Light borders - slightly darker */
+    --color-neutral-700: hsl(240, 8%, 92%);      /* Card backgrounds - softer gray */
+    --color-neutral-800: hsl(240, 12%, 97%);     /* Surface elements - warmer white */
+    --color-neutral-900: hsl(240, 15%, 98%);     /* Main background - soft off-white */
+    --color-orange-500: hsl(28, 100%, 52%);
+
+    --color-blue-500: hsl(233, 67%, 56%);
+    --color-blue-700: hsl(248, 70%, 36%);
+
+    /* Text Colors - improved readability */
+    --color-text-neutral-0: hsl(243, 96%, 9%);
+    --color-text-neutral-200: hsl(243, 23%, 30%);
+    --color-text-neutral-300: hsl(240, 6%, 50%);
+    --color-text-neutral-600: hsl(240, 8%, 88%);
+    --color-text-neutral-700: hsl(240, 8%, 92%);
+    --color-text-neutral-800: hsl(240, 12%, 97%);
+    --color-text-neutral-900: hsl(240, 15%, 98%);
+    --color-text-orange-500: hsl(28, 100%, 52%);
+    --color-text-blue-500: hsl(233, 67%, 56%);
+    --color-text-blue-700: hsl(248, 70%, 36%);
+
+    /* Border Colors - better definition */
+    --color-border-neutral-0: hsl(243, 96%, 9%);
+    --color-border-neutral-200: hsl(243, 23%, 30%);
+    --color-border-neutral-300: hsl(240, 6%, 50%);
+    --color-border-neutral-600: hsl(240, 8%, 88%);
+    --color-border-neutral-700: hsl(240, 8%, 92%);
+    --color-border-neutral-800: hsl(240, 12%, 97%);
+    --color-border-neutral-900: hsl(240, 15%, 98%);
+    --color-border-orange-500: hsl(28, 100%, 52%);
+    --color-border-blue-500: hsl(233, 67%, 56%);
+    --color-border-blue-700: hsl(248, 70%, 36%);
+    }
+  }
+}
 
 /* Font Faces */
 @font-face {
@@ -85,8 +116,8 @@
 }
 
 :root {
-  background-color: hsl(243, 96%, 9%);
-  color: hsl(0, 0%, 100%);
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-0);
   font-family: 'DM Sans', sans-serif;
 
 }
@@ -156,6 +187,10 @@
 
 .animate-dot-wave {
   animation: dot-wave 0.8s ease-in-out infinite;
+}
+
+.focus-ring {
+  @apply outline-none focus:ring-2 focus:ring-neutral-0 focus:ring-offset-2 focus:ring-offset-neutral-900
 }
 
 }

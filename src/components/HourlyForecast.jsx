@@ -41,7 +41,12 @@ function HourlyForecast({ hourly, loading }) {
         <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
-      <div className="max-h-[750px] overflow-y-auto px-6 pb-6">
+      <div
+        className="max-h-[750px] overflow-y-auto px-6 pb-6"
+        tabIndex="0"
+        role="region"
+        aria-label="Hourly weather forecast for selected day"
+      >
         <div className="flex flex-col gap-4">
           {selectedDayHours.map((hour, index) => (
             <motion.div

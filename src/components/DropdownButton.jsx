@@ -4,7 +4,7 @@ function DropdownButton({ onClick, children, isSelected }) {
   return (
     <button
       onClick={onClick}
-      className={`text-preset-7 group relative w-full cursor-pointer overflow-hidden rounded-lg px-2 py-3 text-left transition-colors outline-none focus:ring-2 focus:ring-neutral-0 ${
+      className={`text-preset-7 group focus-ring relative w-full cursor-pointer overflow-hidden rounded-lg px-2 py-3 text-left transition-colors ${
         isSelected ? "bg-neutral-700" : ""
       }`}
     >

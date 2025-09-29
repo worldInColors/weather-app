@@ -83,7 +83,7 @@ function SearchBar({ fetchWeatherData }) {
     >
       <form onSubmit={handleSubmit} className="contents">
         <div className="relative flex items-center gap-3 rounded-xl bg-neutral-700 p-3 text-neutral-200 outline-none focus-within:ring-2 focus-within:ring-neutral-0 md:flex-1">
-          <div className="contents outline-none focus:ring-2 focus:ring-neutral-0">
+          <div className="focus-ring contents">
             <SearchIcon className="h-5 w-5 opacity-70" />
             <input
               value={query}

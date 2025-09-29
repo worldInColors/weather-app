@@ -9,6 +9,26 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      manifest: {
+        name: "Weather App",
+        short_name: "Weather",
+        description: "A progressive web app for weather forecasts",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+        icons: [
+          {
+            src: "/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         runtimeCaching: [
@@ -19,7 +39,7 @@ export default defineConfig({
               cacheName: "weather-api-cache",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 2, // 2 hours
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
               },
               networkTimeoutSeconds: 10,
             },
@@ -31,7 +51,7 @@ export default defineConfig({
               cacheName: "geocoding-cache",
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 2, // 2 hours
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
               },
             },
           },
