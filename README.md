@@ -174,6 +174,17 @@ const handleUnitSwitch = () => {
 - Added a perload headeer for the bg image in the html
 - Added dev-dist/ to .gitignore
 
+#### Day 17-21
+
+- Was busy so didnt do anything
+
+#### Day 22 & 23
+
+- Added focus lock to input elments
+- made it so its possible to disable weather items you dont need
+- made it so its posible to re-order items
+- Added light mode colors
+
 ---
 
 ### What I learned

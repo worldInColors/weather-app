@@ -2,7 +2,7 @@ import { Amphora, Edit, Settings } from "lucide-react";
 import WeatherInfoGridItem from "./WeatherInfoGridItem";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dropDownAnimation } from "../animations/motionVariants";
 import { DropdownButton as Button } from "./DropdownButton";
 import { FocusTrap } from "focus-trap-react";
@@ -15,6 +15,7 @@ import {
   useSensor,
   useSensors,
   DragOverlay,
+  TouchSensor,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -107,10 +108,31 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const dropdownRef = useOutsideClick(() => setIsOpen(false));
 
+  useEffect(() => {
+    const savedOrder = localStorage.getItem("weatherItemOrder");
+    const savedVisibility = localStorage.getItem("weatherItemVisibility");
+
+    if (savedOrder) {
+      setItemOrder(JSON.parse(savedOrder));
+    }
+    if (savedVisibility) {
+      setVisibleItems(JSON.parse(savedVisibility));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("weatherItemVisibility", JSON.stringify(visibleItems));
+  }, [visibleItems]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -150,12 +172,15 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
-    if (active.id !== over?.id) {
+    if (active.id !== over?.id && over) {
       setItemOrder((items) => {
         const oldIndex = items.indexOf(active.id);
         const newIndex = items.indexOf(over.id);
+        const newOrder = arrayMove(items, oldIndex, newIndex);
 
-        return arrayMove(items, oldIndex, newIndex);
+        localStorage.setItem("weatherItemOrder", JSON.stringify(newOrder));
+
+        return newOrder;
       });
     }
 
@@ -253,7 +278,12 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
           <AnimatePresence>
             {isOpen && (
               <>
-                <FocusTrap>
+                <FocusTrap
+                  focusTrapOptions={{
+                    initialFocus: false,
+                    allowOutsideClick: true,
+                  }}
+                >
                   <motion.div
                     ref={dropdownRef}
                     layout
