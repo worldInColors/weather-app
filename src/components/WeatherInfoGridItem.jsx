@@ -20,6 +20,7 @@ function WeatherInfoGridItem({
   return (
     <motion.div
       variants={itemVariants}
+      exit={{ y: -20, opacity: 0, transition: { duration: 0.3 } }}
       className={`flex flex-col gap-6 rounded-xl border border-neutral-600 bg-neutral-800 p-5 md:flex-1 ${className}`}
     >
       <h3 className="text-preset-6">{label}</h3>

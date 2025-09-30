@@ -218,7 +218,7 @@ function App() {
             loading={loading}
             selectedOptions={selectedOptions}
           />
-          <div className="lg:flex lg:min-w-[657px] lg:flex-1 lg:flex-col lg:justify-end">
+          <div className="lg:flex lg:min-w-[657px] lg:flex-col lg:justify-end">
             <h2 className="text-preset-5 mt-8 lg:mb-0">Daily forecast</h2>
             <DailyForecastGrid
               loading={loading}

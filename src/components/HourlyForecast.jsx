@@ -41,19 +41,17 @@ function HourlyForecast({ hourly, loading }) {
         <h2 className="font-dm-semibold text-lg text-white">Hourly forecast</h2>
         <Dropdown selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
       </div>
-      <div
-        className="max-h-[750px] overflow-y-auto px-6 pb-6"
-        tabIndex="0"
-        role="region"
-        aria-label="Hourly weather forecast for selected day"
-      >
+      <div className="focus-ring max-h-[750px] overflow-y-auto px-6 pb-6">
         <div className="flex flex-col gap-4">
           {selectedDayHours.map((hour, index) => (
             <motion.div
-              key={index}
-              className="flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
+              key={`${selectedDay}-${index}`}
+              className="focus-ring flex items-center justify-between gap-4 rounded-lg border border-neutral-600 bg-neutral-700 p-3 py-2 transition-colors"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              tabIndex={0}
+              role="region"
+              aria-label="Hourly weather forecast for selected day"
               transition={{
                 duration: 0.4,
                 ease: "easeOut",
