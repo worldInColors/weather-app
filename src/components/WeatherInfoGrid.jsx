@@ -133,8 +133,7 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 100,
-        tolerance: 5,
+        distance: 10,
       },
     }),
     useSensor(KeyboardSensor, {
