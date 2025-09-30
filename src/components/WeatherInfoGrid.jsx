@@ -67,7 +67,7 @@ function SortableItem({ id, children, isEditMode }) {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    touchAction: isEditMode ? "none" : "auto",
+    touchAction: isEditMode ? "manipulation" : "auto",
   };
 
   return (
@@ -76,9 +76,7 @@ function SortableItem({ id, children, isEditMode }) {
       style={style}
       {...(isEditMode ? attributes : {})}
       {...(isEditMode ? listeners : {})}
-      className={
-        isEditMode ? "cursor-grab touch-none active:cursor-grabbing" : ""
-      }
+      className={isEditMode ? "cursor-grab active:cursor-grabbing" : ""}
     >
       {children}
     </div>
@@ -129,8 +127,17 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
   }, [itemOrder]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(TouchSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
