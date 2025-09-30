@@ -83,25 +83,35 @@ function SortableItem({ id, children, isEditMode }) {
 }
 
 function WeatherInfoGrid({ current, loading, selectedOptions }) {
-  const [visibleItems, setVisibleItems] = useState({
-    feelsLike: true,
-    humidity: true,
-    wind: true,
-    precipitation: true,
-    uvIndex: true,
-    visibility: true,
-    airPressure: true,
+  const [visibleItems, setVisibleItems] = useState(() => {
+    const saved = localStorage.getItem("weatherItemVisibility");
+    return saved
+      ? JSON.parse(saved)
+      : {
+          feelsLike: true,
+          humidity: true,
+          wind: true,
+          precipitation: true,
+          uvIndex: true,
+          visibility: true,
+          airPressure: true,
+        };
   });
 
-  const [itemOrder, setItemOrder] = useState([
-    "feelsLike",
-    "humidity",
-    "wind",
-    "precipitation",
-    "uvIndex",
-    "visibility",
-    "airPressure",
-  ]);
+  const [itemOrder, setItemOrder] = useState(() => {
+    const saved = localStorage.getItem("weatherItemOrder");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          "feelsLike",
+          "humidity",
+          "wind",
+          "precipitation",
+          "uvIndex",
+          "visibility",
+          "airPressure",
+        ];
+  });
 
   const [activeId, setActiveId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -109,19 +119,11 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
   const dropdownRef = useOutsideClick(() => setIsOpen(false));
 
   useEffect(() => {
-    const savedOrder = localStorage.getItem("weatherItemOrder");
-    const savedVisibility = localStorage.getItem("weatherItemVisibility");
-
-    if (savedOrder) {
-      setItemOrder(JSON.parse(savedOrder));
-    }
-    if (savedVisibility) {
-      setVisibleItems(JSON.parse(savedVisibility));
-    }
-  }, []);
-  useEffect(() => {
     localStorage.setItem("weatherItemVisibility", JSON.stringify(visibleItems));
   }, [visibleItems]);
+  useEffect(() => {
+    localStorage.setItem("weatherItemOrder", JSON.stringify(itemOrder));
+  }, [itemOrder]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -177,8 +179,6 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
         const oldIndex = items.indexOf(active.id);
         const newIndex = items.indexOf(over.id);
         const newOrder = arrayMove(items, oldIndex, newIndex);
-
-        localStorage.setItem("weatherItemOrder", JSON.stringify(newOrder));
 
         return newOrder;
       });
@@ -266,7 +266,7 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
           <Edit className="h-5 w-5" />
         </button>
 
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="focus-ring rounded-lg p-2 transition-colors hover:bg-gray-800"
@@ -285,7 +285,6 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
                   }}
                 >
                   <motion.div
-                    ref={dropdownRef}
                     layout
                     variants={dropDownAnimation}
                     initial="hidden"

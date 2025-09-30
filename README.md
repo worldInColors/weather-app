@@ -184,6 +184,8 @@ const handleUnitSwitch = () => {
 - made it so its possible to disable weather items you dont need
 - made it so its posible to re-order items
 - Added light mode colors
+- Added Drag and drop support for mobile
+- Fixed dropdown
 
 ---
 
