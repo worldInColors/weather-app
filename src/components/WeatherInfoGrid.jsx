@@ -353,6 +353,7 @@ function WeatherInfoGrid({ current, loading, selectedOptions }) {
                       label={data.label}
                       value={data.value}
                       loading={false}
+                      animationKey={data.value}
                     />
                   </SortableItem>
                 );

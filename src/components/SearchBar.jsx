@@ -41,7 +41,17 @@ function SearchBar({ fetchWeatherData }) {
       });
   }, [debouncedQuery]);
 
+  const getFlagEmoji = (countryCode) => {
+    if (!countryCode) return "";
+    const codePoints = countryCode
+      .toUpperCase()
+      .split("")
+      .map((char) => 127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  };
+
   const formatLocation = (result) => {
+    const flag = getFlagEmoji(result.country_code);
     const parts = [result.name];
     if (result.admin1) {
       parts.push(result.admin1);
@@ -49,9 +59,8 @@ function SearchBar({ fetchWeatherData }) {
     if (result.country) {
       parts.push(result.country);
     }
-    return parts.join(", ");
+    return `${flag} ${parts.join(", ")}`;
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const selectedResult = results[0];

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Search, MapPin, Droplets, Wind, Eye } from "lucide-react";
-import Navbar from "./components/Navbar";
 
 function ComparisonSearchBar({ onLocationSelect, label }) {
   const [query, setQuery] = useState("");
@@ -98,6 +97,7 @@ function ComparisonSearchBar({ onLocationSelect, label }) {
   );
 }
 
+// Compact weather card for comparison
 function ComparisonWeatherCard({ location, weatherData, loading }) {
   if (loading) {
     return (
@@ -199,7 +199,6 @@ export default function ComparePage() {
 
   return (
     <div className="min-h-screen bg-neutral-900 p-6 text-white">
-      <Navbar />
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-8 text-center text-4xl font-bold">
           Compare Weather Locations
